@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { RoadmapElement } from "../roadmap-element/roadmap-element";
 
 @Component({
   selector: 'app-roadmap-section',
-  imports: [],
+  imports: [RoadmapElement],
   templateUrl: './roadmap-section.html',
   styleUrl: './roadmap-section.css'
 })
