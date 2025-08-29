@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { RoadmapElement } from "../roadmap-element/roadmap-element";
+import { RoadmapElement } from "@app/roadmap/roadmap-element/roadmap-element";
 
 @Component({
   selector: 'app-roadmap-section',

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { SearcherSection } from "../searcher-section/searcher-section";
-import { NewsSection } from "../news-section/news-section";
+import { SearcherSection } from "@app/home/searcher-section/searcher-section";
+import { NewsSection } from "@app/home/news-section/news-section";
 
 @Component({
   selector: 'app-home',

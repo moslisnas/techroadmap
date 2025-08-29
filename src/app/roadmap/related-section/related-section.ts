@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RelatedList } from "../related-list/related-list";
+import { RelatedList } from "@app/roadmap/related-list/related-list";
 
 @Component({
   selector: 'app-related-section',

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { RelatedSection } from "../related-section/related-section";
-import { RoadmapSection } from "../roadmap-section/roadmap-section";
 import { ActivatedRoute } from '@angular/router';
+import { RelatedSection } from "@app/roadmap/related-section/related-section";
+import { RoadmapSection } from "@app/roadmap/roadmap-section/roadmap-section";
 
 @Component({
   selector: 'app-roadmap',

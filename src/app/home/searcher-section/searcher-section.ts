@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Searcher } from "../searcher/searcher";
+import { Searcher } from "@app/home/searcher/searcher";
 
 @Component({
   selector: 'app-searcher-section',
