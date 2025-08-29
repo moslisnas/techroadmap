@@ -1,4 +1,7 @@
-<h1>Technology title</h1>
+<h1 class="text-3x1">{{techName}} Roadmap</h1>
 <div class="text-center p-5">
     Dates and versions timeline
+    @for(version of techVersions; track version){
+        <div>{{version}}</div>
+    }
 </div>

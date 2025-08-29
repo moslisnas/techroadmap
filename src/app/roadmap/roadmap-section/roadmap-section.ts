@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RoadmapElement } from "../roadmap-element/roadmap-element";
 
 @Component({
@@ -8,5 +8,6 @@ import { RoadmapElement } from "../roadmap-element/roadmap-element";
   styleUrl: './roadmap-section.css'
 })
 export class RoadmapSection {
-
+  @Input() tech!: string;
+  versions: string[] = ['v1.0', 'v2.0', 'v3.0']; // TODO Load versions dynamically
 }
