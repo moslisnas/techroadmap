@@ -10,11 +10,8 @@ describe('NavBar', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [NavBar],
-      providers: [
-        provideRouter([])
-      ]
-    })
-    .compileComponents();
+      providers: [provideRouter([])],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(NavBar);
     component = fixture.componentInstance;

@@ -8,9 +8,8 @@ describe('RoadmapSection', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RoadmapSection]
-    })
-    .compileComponents();
+      imports: [RoadmapSection],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(RoadmapSection);
     component = fixture.componentInstance;

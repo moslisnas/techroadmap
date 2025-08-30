@@ -1,6 +1,12 @@
 <div class="text-center">
   <form (ngSubmit)="redirectRoadmapPage()">
-    <input type="text" [(ngModel)]="searchValue" name="searchValue" placeholder="Search technology..." class="p-2 rounded border-1" />
+    <input
+      type="text"
+      [(ngModel)]="searchValue"
+      name="searchValue"
+      placeholder="Search technology..."
+      class="p-2 rounded border-1"
+    />
     <button type="submit" hidden></button>
   </form>
 </div>

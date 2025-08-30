@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { RoadmapElement } from "@app/roadmap/roadmap-element/roadmap-element";
+import { RoadmapElement } from '@app/roadmap/roadmap-element/roadmap-element';
 
 @Component({
   selector: 'app-roadmap-section',
   imports: [RoadmapElement],
   templateUrl: './roadmap-section.html',
-  styleUrl: './roadmap-section.css'
+  styleUrl: './roadmap-section.css',
 })
 export class RoadmapSection {
   @Input() tech!: string;
