@@ -8,7 +8,8 @@
     "start:tailwind": "npx @tailwindcss/cli -i ./src/tailwind.css -o ./src/styles.css --watch",
     "build": "ng build && npx @tailwindcss/cli -i ./src/tailwind.css -o ./src/styles.css",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "coverage": "ng test --code-coverage"
   },
   "prettier": {
     "printWidth": 100,
