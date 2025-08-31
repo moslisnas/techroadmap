@@ -1,7 +1,9 @@
+@if(tech !== null){
 <h1 class="text-3x1">{{ tech.name }} Roadmap</h1>
 <div class="text-center p-5">
-  Dates and versions timeline
+  <h2>Dates and versions timeline</h2>
   @for(version of tech.versions; track version){
-    <div>{{ version.name }}</div>
+  <div>{{ version.name }}</div>
   }
 </div>
+}

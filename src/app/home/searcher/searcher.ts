@@ -12,7 +12,7 @@ import TechMockData from 'data/TechData';
 })
 export class Searcher {
   searchValue: string = '';
-  filteredTech: any[] = [];
+  filteredTech: Technology[] = [];
   showDropdown: boolean = false;
 
   constructor(private router: Router) {}

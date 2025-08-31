@@ -19,4 +19,14 @@ describe('RoadmapSection', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should load roadmap-element variables when techString find one element', () => {
+    // Arrange
+    component.techString = 'Angular';
+    component.techActive = true;
+    // Act
+    component.ngOnInit();
+    // Asserts
+    expect(component.techSelected).toBeDefined();
+  });
 });

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { Technology } from '@app/models/Technology.model';
 import { RoadmapElement } from './roadmap-element';
 
 describe('RoadmapElement', () => {
@@ -13,6 +13,13 @@ describe('RoadmapElement', () => {
 
     fixture = TestBed.createComponent(RoadmapElement);
     component = fixture.componentInstance;
+    component.tech = {
+      name: 'Angular',
+      description: '',
+      url: '',
+      logo: '',
+      versions: [],
+    } as Technology;
     fixture.detectChanges();
   });
 
