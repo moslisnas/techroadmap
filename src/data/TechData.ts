@@ -1,0 +1,72 @@
+import { Technology } from '@app/models/Technology.model';
+
+const TechMockObjectData: any = {
+  angular: {
+    name: 'Angular',
+    description: 'A platform for building mobile and desktop web applications.',
+    url: 'https://angular.dev/',
+    logo: 'angular.svg',
+    versions: [
+      { name: '1.x', description: 'https://angularjs.org/' },
+      { name: '2.x', description: 'https://angular.io/' },
+      { name: '4.x', description: 'https://angular.io/' },
+      { name: '5.x', description: 'https://angular.io/' },
+      { name: '6.x', description: 'https://angular.io/' },
+      { name: '7.x', description: 'https://angular.io/' },
+      { name: '8.x', description: 'https://angular.io/' },
+      { name: '9.x', description: 'https://angular.io/' },
+      { name: '10.x', description: 'https://angular.io/' },
+      { name: '11.x', description: 'https://angular.io/' },
+      { name: '12.x', description: 'https://angular.io/' },
+      { name: '13.x', description: 'https://angular.io/' },
+      { name: '14.x', description: 'https://angular.io/' },
+      { name: '15.x', description: 'https://angular.io/' },
+    ],
+  },
+  nodejs: {
+    name: 'Node.js',
+    description: "A JavaScript runtime built on Chrome's V8 JavaScript engine.",
+    url: 'https://nodejs.org/',
+    logo: 'nodejs.svg',
+    versions: [
+      { name: '10.x', description: 'https://nodejs.org/en/blog/release/v10.0.0/' },
+      { name: '12.x', description: 'https://nodejs.org/en/blog/release/v12.0.0/' },
+      { name: '14.x', description: 'https://nodejs.org/en/blog/release/v14.0.0/' },
+      { name: '16.x', description: 'https://nodejs.org/en/blog/release/v16.0.0/' },
+      { name: '18.x', description: 'https://nodejs.org/en/blog/release/v18.0.0/' },
+      { name: '20.x', description: 'https://nodejs.org/en/blog/release/v20.0.0/' },
+    ],
+  },
+  react: {
+    name: 'React',
+    description: 'A JavaScript library for building user interfaces.',
+    url: 'https://reactjs.org/',
+    logo: 'react.svg',
+    versions: [
+      { name: '15.x', description: 'https://reactjs.org/blog/2016/03/07/react-v15.html' },
+      { name: '16.x', description: 'https://reactjs.org/blog/2017/09/26/react-v16.0.html' },
+      { name: '17.x', description: 'https://reactjs.org/blog/2020/10/20/react-v17.html' },
+      { name: '18.x', description: 'https://reactjs.org/blog/2022/03/29/react-v18.html' },
+    ],
+  },
+  vue: {
+    name: 'Vue.js',
+    description: 'The Progressive JavaScript Framework.',
+    url: 'https://vuejs.org/',
+    logo: 'vue.svg',
+    versions: [
+      { name: '1.x', description: 'https://vuejs.org/v1/guide/' },
+      { name: '2.x', description: 'https://vuejs.org/v2/guide/' },
+      { name: '3.x', description: 'https://vuejs.org/guide/introduction.html' },
+    ],
+  },
+};
+
+const TechMockData: Technology[] = [
+  TechMockObjectData.angular,
+  TechMockObjectData.nodejs,
+  TechMockObjectData.react,
+  TechMockObjectData.vue,
+];
+
+export default TechMockData;

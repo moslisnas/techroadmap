@@ -1,3 +1,7 @@
 <div class="text-center p-10">
-  <app-roadmap-element [techName]="tech" [techVersions]="versions" />
+  @if(techActive){
+  <app-roadmap-element [tech]="techSelected" />
+  } @else{
+  <p>"{{techString}}": Not Found</p>
+  }
 </div>

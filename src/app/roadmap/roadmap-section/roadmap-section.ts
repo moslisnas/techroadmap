@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { Technology } from '@app/models/Technology.model';
 import { RoadmapElement } from '@app/roadmap/roadmap-element/roadmap-element';
+import TechMockData from 'data/TechData';
 
 @Component({
   selector: 'app-roadmap-section',
@@ -8,6 +10,17 @@ import { RoadmapElement } from '@app/roadmap/roadmap-element/roadmap-element';
   styleUrl: './roadmap-section.css',
 })
 export class RoadmapSection {
-  @Input() tech!: string;
-  versions: string[] = ['v1.0', 'v2.0', 'v3.0']; // TODO Load versions dynamically
+  @Input() techString!: string;
+  @Input() techActive!: boolean;
+  techSelected!: Technology;
+  versions!: string[];
+
+  ngOnInit() {
+    if (this.techString && this.techString.length > 2) {
+      const techsFiltered: any[] = Object.values(TechMockData).filter((tech: any) =>
+        tech.name.toLowerCase().includes(this.techString.toLowerCase())
+      );
+      this.techSelected = techsFiltered[0];
+    }
+  }
 }

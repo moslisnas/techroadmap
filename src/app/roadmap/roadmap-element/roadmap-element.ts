@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Technology } from '@app/models/Technology.model';
 
 @Component({
   selector: 'app-roadmap-element',
@@ -7,6 +8,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './roadmap-element.css',
 })
 export class RoadmapElement {
-  @Input() techName!: string;
-  @Input() techVersions!: string[];
+  @Input() tech!: Technology;
 }

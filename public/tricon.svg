@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="60" height="60">
+  <path d="M5 45 
+           C10 40, 15 40, 20 45
+           C25 50, 30 50, 35 45
+           C40 40, 45 40, 50 45"
+        stroke="#4F46E5" stroke-width="1.5" fill="none"/>
+  <circle cx="5" cy="45" r="2" fill="#4F46E5"/>
+  <circle cx="20" cy="45" r="2" fill="#4F46E5"/>
+  <circle cx="35" cy="45" r="2" fill="#4F46E5"/>
+  <circle cx="50" cy="45" r="2" fill="#4F46E5"/>
+  
+  <text x="27.5" y="31" font-size="28" font-weight="700" text-anchor="middle" dominant-baseline="middle" fill="#4F46E5" stroke="#4F46E5" stroke-width="0.5" stroke-linejoin="round">TR</text>
+</svg>

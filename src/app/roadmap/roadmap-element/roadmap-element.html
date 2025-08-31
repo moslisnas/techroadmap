@@ -1,7 +1,7 @@
-<h1 class="text-3x1">{{techName}} Roadmap</h1>
+<h1 class="text-3x1">{{ tech.name }} Roadmap</h1>
 <div class="text-center p-5">
-    Dates and versions timeline
-    @for(version of techVersions; track version){
-        <div>{{version}}</div>
-    }
+  Dates and versions timeline
+  @for(version of tech.versions; track version){
+    <div>{{ version.name }}</div>
+  }
 </div>
