@@ -1,9 +1,7 @@
 @if(tech !== null){
-<h1 class="text-3x1">{{ tech.name }} Roadmap</h1>
-<div class="text-center p-5">
-  <h2>Dates and versions timeline</h2>
-  @for(version of tech.versions; track version){
-  <div>{{ version.name }}</div>
-  }
-</div>
+<h2 class="flex mb-2 items-center">
+  <img [src]="'assets/icons/' + tech.logo" alt="{{ tech.name }} logo" class="h-8 w-8 ml-auto" />
+  <span class="mr-auto text-xl font-bold">{{ tech.name }}</span>
+</h2>
+<p class="text-center">{{ tech.description }}</p>
 }
