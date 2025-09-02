@@ -4,4 +4,38 @@
   <span class="mr-auto text-xl font-bold">{{ tech.name }}</span>
 </h2>
 <p class="text-center">{{ tech.description }}</p>
+<div class="timelineContainer p-5">
+  <svg
+    class="timeline-svg"
+    xmlns="http://www.w3.org/2000/svg"
+    [attr.viewBox]="'0 0 ' + (viewBoxWidth) + ' ' + (viewBoxHeight)"
+    role="img"
+    aria-label="Línea de tiempo"
+  >
+    <!-- <line
+      [attr.x1]="lineX1"
+      [attr.y1]="lineY"
+      [attr.x2]="lineX2"
+      [attr.y2]="lineY"
+      class="stroke-1 stroke-green-500 stroke-dashed"
+    ></line>-->
+    @for(line of lines; track line){
+    <line
+      [attr.x1]="line[0]"
+      [attr.y1]="line[1]"
+      [attr.x2]="line[2]"
+      [attr.y2]="line[3]"
+      class="stroke-1 stroke-red-500 "
+    ></line>
+    } @for(circle of circles; track circle){
+    <circle
+      [attr.cx]="circle[0]"
+      [attr.cy]="circle[1]"
+      [attr.r]="nodeRadius"
+      [attr.tabindex]="0"
+      class="stroke-1 stroke-red-500 fill-white"
+    ></circle>
+    }
+  </svg>
+</div>
 }
