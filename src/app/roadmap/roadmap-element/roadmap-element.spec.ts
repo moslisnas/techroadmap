@@ -18,6 +18,7 @@ describe('RoadmapElement', () => {
       description: '',
       url: '',
       logo: '',
+      colors: {},
       versions: [],
     } as Technology;
     fixture.detectChanges();
