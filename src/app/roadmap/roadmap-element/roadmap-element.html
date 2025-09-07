@@ -3,47 +3,68 @@
   <img [src]="'assets/icons/' + tech.logo" alt="{{ tech.name }} logo" class="h-8 w-8 ml-auto" />
   <span class="mr-auto text-xl font-bold">{{ tech.name }}</span>
 </h2>
-<p class="text-center">{{ tech.description }}</p>
+<p class="text-center mb-3">{{ tech.description }}</p>
 <div class="timelineContainer p-5">
+  @if(versionTooltipVisible){
+  <div
+    class="absolute bg-yellow-50 border-1 p-1 rounded shadow-lg"
+    [style.left.px]="versionTooltipPosition[0]"
+    [style.top.px]="versionTooltipPosition[1]"
+  >
+    @if(versionTooltipTitle!==null && versionTooltipTitle!==''){<p class="font-bold">{{ versionTooltipTitle }}</p>}
+    @if(versionTooltipDescription!==null && versionTooltipDescription!==''){<p>{{ versionTooltipDescription }}</p>}
+    @if(versionTooltipNote!==null && versionTooltipNote!==''){<p class="italic">{{ versionTooltipNote }}</p>}
+  </div>
+  }
+  @if(periodTooltipVisible){
+  <div
+    class="absolute bg-yellow-50 border-1 p-1 rounded shadow-lg"
+    [style.left.px]="periodTooltipPosition[0]"
+    [style.top.px]="periodTooltipPosition[1]"
+  >
+    @if(periodTooltipDescription!==null && periodTooltipDescription!==''){<p>{{ periodTooltipDescription }}</p>}
+  </div>
+  }
   <svg
-    class="timeline-svg"
     xmlns="http://www.w3.org/2000/svg"
     [attr.viewBox]="'0 0 ' + viewBoxWidth + ' ' + viewBoxHeight"
     role="img"
-    aria-label="Línea de tiempo"
+    aria-label="Roadmap for {{ tech.name }} technology"
   >
-    @for(line of lines; track line){
+    @for(period of periods; track period){
     <line
-      [attr.x1]="line[0]"
-      [attr.y1]="line[1]"
-      [attr.x2]="line[2]"
-      [attr.y2]="line[3]"
+      [attr.x1]="period.positionLineX1"
+      [attr.y1]="period.positionLineY1"
+      [attr.x2]="period.positionLineX2"
+      [attr.y2]="period.positionLineY2"
       [style.stroke]="lineColor"
       class="stroke-1"
+      (mouseenter)="showPeriodTooltip(period)"
+      (mouseleave)="hidePeriodTooltip()"
     ></line>
     } @for(node of nodes; track node){
-    <text
-      [attr.x]="node.positionTextNodeX"
-      [attr.y]="node.positionTextNodeY"
-      [style]="node.textFontStyle"
-    >
-      {{ node.text }}
-    </text>
-    <circle
-      [attr.cx]="node.positionCircleX"
-      [attr.cy]="node.positionCircleY"
-      [attr.r]="nodeRadius"
-      [attr.tabindex]="0"
-      [style.stroke]="dotColor"
-      class="stroke-1 fill-white"
-    ></circle>
+    <ng-container>
+      <text
+        [attr.x]="node.positionTextNodeX"
+        [attr.y]="node.positionTextNodeY"
+        [style]="node.textFontStyle"
+        (mouseenter)="showVersionTooltip(node)"
+        (mouseleave)="hideVersionTooltip()"
+      >
+        {{ node.text }}
+      </text>
+      <circle
+        [attr.cx]="node.positionCircleX"
+        [attr.cy]="node.positionCircleY"
+        [attr.r]="nodeRadius"
+        [attr.tabindex]="0"
+        [style.stroke]="dotColor"
+        class="stroke-1 fill-white cursor-pointer"
+        (mouseenter)="showVersionTooltip(node)"
+        (mouseleave)="hideVersionTooltip()"
+      ></circle>
+    </ng-container>
     }
   </svg>
-  @if(showTooltip){
-  <div class="absolute">
-    <!--[style.left.px]="tooltipX" [style.top.px]="tooltipY">-->
-    {{ tooltipText }}
-  </div>
-  }
 </div>
 }
