@@ -7,7 +7,7 @@
 <div class="timelineContainer p-5">
   @if(versionTooltipVisible){
   <div
-    class="absolute bg-yellow-50 border-1 p-1 rounded shadow-lg"
+    class="absolute border-1 p-1 rounded shadow-lg"
     [style.left.px]="versionTooltipPosition[0]"
     [style.top.px]="versionTooltipPosition[1]"
   >
@@ -18,7 +18,7 @@
   }
   @if(periodTooltipVisible){
   <div
-    class="absolute bg-yellow-50 border-1 p-1 rounded shadow-lg"
+    class="absolute border-1 p-1 rounded shadow-lg"
     [style.left.px]="periodTooltipPosition[0]"
     [style.top.px]="periodTooltipPosition[1]"
   >
@@ -38,9 +38,9 @@
       [attr.x2]="period.positionLineX2"
       [attr.y2]="period.positionLineY2"
       [style.stroke]="lineColor"
-      class="stroke-1"
-      (mouseenter)="showPeriodTooltip(period)"
-      (mouseleave)="hidePeriodTooltip()"
+      [style.stroke-width]="lineWidth"
+      (mouseenter)="showPeriodTooltip(period, $event.target)"
+      (mouseleave)="hidePeriodTooltip($event.target)"
     ></line>
     } @for(node of nodes; track node){
     <ng-container>
@@ -48,8 +48,6 @@
         [attr.x]="node.positionTextNodeX"
         [attr.y]="node.positionTextNodeY"
         [style]="node.textFontStyle"
-        (mouseenter)="showVersionTooltip(node)"
-        (mouseleave)="hideVersionTooltip()"
       >
         {{ node.text }}
       </text>
@@ -59,9 +57,10 @@
         [attr.r]="nodeRadius"
         [attr.tabindex]="0"
         [style.stroke]="dotColor"
-        class="stroke-1 fill-white cursor-pointer"
-        (mouseenter)="showVersionTooltip(node)"
-        (mouseleave)="hideVersionTooltip()"
+        class="stroke-1 fill-white cursor-pointer focus:stroke-1 focus:fill-white focus:outline-none"
+        (mouseenter)="showVersionTooltip(node, $event.target)"
+        (mouseleave)="hideVersionTooltip($event.target)"
+        (click)="openVersionUrl(node)"
       ></circle>
     </ng-container>
     }

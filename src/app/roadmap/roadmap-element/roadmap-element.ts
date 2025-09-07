@@ -15,6 +15,7 @@ export class RoadmapElement {
   viewBoxWidth: number = 0;
   viewBoxHeight: number = 0;
   nodeRadius: number = 0;
+  lineWidth: number = 1;
   graphPaddingX: number = 0;
   graphPaddingY: number = 0;
   lines: any[] = [];
@@ -101,35 +102,42 @@ export class RoadmapElement {
         nodeTooltipDescription: this.tech.versions[i].description,
         positionTooltipNodeX: this.circles[i][0] * 3.5, // TODO: improve position calculation
         positionTooltipNodeY: 175, // TODO: improve position calculation
+        url: this.tech.versions[i].description
         //lts: this.tech.versions[i].lts,
-        //url: this.tech.versions[i].url,
       });
     }
   }
 
   // Interaction methods and events
-  showVersionTooltip(node: any) {
+  showVersionTooltip(node: any, elementRef: any) {
     this.versionTooltipVisible = true;
     this.versionTooltipTitle = node.nodeTooltipTitle;
     this.versionTooltipDescription = node.nodeTooltipDescription;
     this.versionTooltipNote = 'Click for more information';
     this.versionTooltipPosition = [node.positionTooltipNodeX, node.positionTooltipNodeY];
+    elementRef.setAttribute('r', this.nodeRadius * 2);
   }
-  hideVersionTooltip() {
+  hideVersionTooltip(elementRef: any) {
     this.versionTooltipVisible = false;
     this.versionTooltipTitle = '';
     this.versionTooltipDescription = '';
     this.versionTooltipNote = '';
     this.versionTooltipPosition = [0, 0];
+    elementRef.setAttribute('r', this.nodeRadius);
   }
-  showPeriodTooltip(period: any) {
+  openVersionUrl(node: any) {
+    window.open(node.url, '_blank');
+  }
+  showPeriodTooltip(period: any, elementRef: any) {
     this.periodTooltipVisible = true;
     this.periodTooltipDescription = period.lineTooltipDescription;
     this.periodTooltipPosition = [period.positionTooltipPeriodX, period.positionTooltipPeriodY];
+    elementRef.setAttribute('style','stroke-width: 2; stroke: ' + this.tech.colors.primary);
   }
-  hidePeriodTooltip() {
+  hidePeriodTooltip(elementRef: any) {
     this.periodTooltipVisible = false;
     this.periodTooltipDescription = '';
     this.periodTooltipPosition = [0, 0];
+    elementRef.setAttribute('style','stroke-width: ' + this.lineWidth + '; stroke: ' + this.tech.colors.primary);
   }
 }
