@@ -17,6 +17,7 @@
       [style.stroke-width]="lineWidth"
       (mouseenter)="showPeriodTooltip(period, $event.target)"
       (mouseleave)="hidePeriodTooltip($event.target)"
+      class="transition-all duration-300"
     ></line>
     } @for(node of nodes; track node){
     <ng-container>
@@ -33,7 +34,8 @@
         [attr.r]="nodeRadius"
         [attr.tabindex]="0"
         [style.stroke]="dotColor"
-        class="stroke-1 fill-white cursor-pointer focus:stroke-1 focus:fill-white focus:outline-none"
+        [attr.fill]="dotFillColor"
+        class="stroke-1 cursor-pointer transition-all duration-300"
         (mouseenter)="showVersionTooltip(node, $event.target)"
         (mouseleave)="hideVersionTooltip($event.target)"
         (click)="openVersionUrl(node)"

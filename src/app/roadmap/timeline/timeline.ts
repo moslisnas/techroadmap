@@ -27,6 +27,7 @@ export class Timeline {
   nodes: any[] = [];
   lineColor: string = '#000000';
   dotColor: string = '#000000';
+  dotFillColor: string = '#FFFFFF';
   versionTooltipVisible: boolean = false;
   periodTooltipVisible: boolean = false;
 
@@ -110,11 +111,13 @@ export class Timeline {
     this.versionTooltipVisible = true;
     this.nodeTooltipComponent?.showTooltip(node);
     elementRef.setAttribute('r', this.nodeRadius * 2);
+    elementRef.setAttribute('fill', this.dotColor);
   }
   hideVersionTooltip(elementRef: any) {
     this.versionTooltipVisible = false;
     this.nodeTooltipComponent?.hideTooltip();
     elementRef.setAttribute('r', this.nodeRadius);
+    elementRef.setAttribute('fill', '#FFFFFF');
   }
   openVersionUrl(node: any) {
     window.open(node.url, '_blank');
