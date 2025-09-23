@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { Technology } from '@app/models/Technology.model';
-import { TechnologyVersion } from '@app/models/TechnologyVersion.model';
+import { TechnologyVersion } from '@models/TechnologyVersion.model';
 import { TimelineTooltip } from '../timeline-tooltip/timeline-tooltip';
 
 @Component({

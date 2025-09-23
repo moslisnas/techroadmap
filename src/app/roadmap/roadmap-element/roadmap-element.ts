@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Technology } from '@app/models/Technology.model';
+import { Technology } from '@models/Technology.model';
 import { Timeline } from '../timeline/timeline';
 
 @Component({

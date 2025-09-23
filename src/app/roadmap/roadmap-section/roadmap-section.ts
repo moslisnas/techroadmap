@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Technology } from '@app/models/Technology.model';
+import { Technology } from '@models/Technology.model';
 import { RoadmapElement } from '@app/roadmap/roadmap-element/roadmap-element';
 import TechMockData from 'data/TechData';
 
