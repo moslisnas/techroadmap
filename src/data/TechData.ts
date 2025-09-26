@@ -6,7 +6,8 @@ const TechMockObjectData: any = {
     description: 'A platform for building mobile and desktop web applications.',
     url: 'https://angular.dev/',
     logo_path: 'angular.svg',
-    colors: { primary: '#DD0031', secondary: '#C3002F' },
+    color_primary: '#DD0031',
+    color_secondary: '#C3002F',
     versions: [
       { name: '1.x', description: 'https://angularjs.org/', date: '2010' },
       { name: '2.x', description: 'https://angular.io/', date: '2016' },
@@ -29,7 +30,8 @@ const TechMockObjectData: any = {
     description: "A JavaScript runtime built on Chrome's V8 JavaScript engine.",
     url: 'https://nodejs.org/',
     logo_path: 'nodejs.svg',
-    colors: { primary: '#339933', secondary: '#333333' },
+    color_primary: '#339933',
+    color_secondary: '#333333',
     versions: [
       { name: '10.x', description: 'https://nodejs.org/en/blog/release/v10.0.0/', date: '2018' },
       { name: '12.x', description: 'https://nodejs.org/en/blog/release/v12.0.0/', date: '2019' },
@@ -44,7 +46,8 @@ const TechMockObjectData: any = {
     description: 'A JavaScript library for building user interfaces.',
     url: 'https://reactjs.org/',
     logo_path: 'react.svg',
-    colors: { primary: '#61DAFB', secondary: '#20232A' },
+    color_primary: '#61DAFB',
+    color_secondary: '#20232A',
     versions: [
       { name: '15.x', description: 'https://reactjs.org/blog/2016/03/07/react-v15.html', date: '2016' },
       { name: '16.x', description: 'https://reactjs.org/blog/2017/09/26/react-v16.0.html', date: '2017' },
@@ -57,7 +60,8 @@ const TechMockObjectData: any = {
     description: 'The Progressive JavaScript Framework.',
     url: 'https://vuejs.org/',
     logo_path: 'vue.svg',
-    colors: { primary: '#4FC08D', secondary: '#35495E' },
+    color_primary: '#4FC08D',
+    color_secondary: '#35495E',
     versions: [
       { name: '1.x', description: 'https://vuejs.org/v1/guide/', date: '2014' },
       { name: '2.x', description: 'https://vuejs.org/v2/guide/', date: '2016' },

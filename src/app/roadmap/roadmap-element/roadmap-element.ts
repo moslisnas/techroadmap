@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Technology } from '@models/Technology.model';
 import { Timeline } from '../timeline/timeline';
 
@@ -9,5 +9,15 @@ import { Timeline } from '../timeline/timeline';
   styleUrl: './roadmap-element.css',
 })
 export class RoadmapElement {
-  @Input() tech!: Technology;
+  private _tech!: Technology;
+
+  @Input()
+  set tech(value: Technology) {
+    if (value) {
+      this._tech = value;
+    }
+  }
+  get tech(): Technology {
+    return this._tech;
+  }
 }

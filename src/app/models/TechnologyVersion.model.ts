@@ -2,7 +2,7 @@ export class TechnologyVersion {
   constructor(
     public name: string,
     public description: string,
-    public date?: string,
+    public release_date: Date,
     public url?: string,
     public lts?: boolean
   ) {}

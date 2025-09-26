@@ -6,7 +6,8 @@ export class Technology {
     public description: string,
     public url: string,
     public logo_path: string,
-    public colors: any,
+    public color_primary: string,
+    public color_secondary: string,
     public versions: TechnologyVersion[]
   ) {}
 }
