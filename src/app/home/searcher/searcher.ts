@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Technology } from '@models/Technology.model';
-import { ApiService } from '@services/Api.service';
+import { ApiService } from '@app/services/api/Api.service';
 
 @Component({
   selector: 'app-searcher',

@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RelatedSection } from '@app/roadmap/related-section/related-section';
 import { RoadmapSection } from '@app/roadmap/roadmap-section/roadmap-section';
-import TechMockData from 'data/TechData';
+import TechMockData from '@data/TechData';
 
 @Component({
   selector: 'app-roadmap',
@@ -12,9 +12,12 @@ import TechMockData from 'data/TechData';
 })
 export class Roadmap {
   techActive: boolean = false;
-  private route = inject(ActivatedRoute);
-  tech: string = this.route.snapshot.queryParamMap.get('tech') ?? '';
+  tech: string = '';
   filteredTech: any[] = [];
+
+  constructor(private route: ActivatedRoute) {
+    this.tech = this.route.snapshot.queryParamMap.get('tech') ?? '';
+  }
 
   ngOnInit() {
     if (this.tech && this.tech.length > 2) {

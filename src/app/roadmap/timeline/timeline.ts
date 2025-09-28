@@ -1,7 +1,8 @@
-import { Component, Input, ViewChild } from '@angular/core';
-import { Technology } from '@app/models/Technology.model';
+import { Component, ViewChild } from '@angular/core';
+import { Technology } from '@models/Technology.model';
 import { TechnologyVersion } from '@models/TechnologyVersion.model';
-import { TimelineTooltip } from '../timeline-tooltip/timeline-tooltip';
+import { TimelineTooltip } from '@app/roadmap/timeline-tooltip/timeline-tooltip';
+import { TechnologyService } from '@services/technology.service';
 
 @Component({
   selector: 'app-timeline',
@@ -10,20 +11,10 @@ import { TimelineTooltip } from '../timeline-tooltip/timeline-tooltip';
   styleUrl: './timeline.css',
 })
 export class Timeline {
-  private _tech!: Technology;
-
-  @Input()
-  set tech(value: Technology) {
-    if (value) {
-      this._tech = value;
-    }
-  }
-  get tech(): Technology {
-    return this._tech;
-  }
   @ViewChild('nodeTooltip', { static: false }) nodeTooltipComponent!: TimelineTooltip;
   @ViewChild('periodTooltip', { static: false }) periodTooltipComponent!: TimelineTooltip;
 
+  tech!:Technology;
   versions: TechnologyVersion[] = [];
   viewBoxWidth: number = 0;
   viewBoxHeight: number = 0;
@@ -40,6 +31,10 @@ export class Timeline {
   dotFillColor: string = '#FFFFFF';
   versionTooltipVisible: boolean = false;
   periodTooltipVisible: boolean = false;
+
+  constructor(private tecnologyService: TechnologyService) {
+    this.tech = this.tecnologyService.getTechnology()!;
+  }
 
   ngOnInit() {
     this.viewBoxWidth = 300;

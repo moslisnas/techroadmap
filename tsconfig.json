@@ -5,11 +5,12 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
+      "@models/*": ["app/models/*"],
+      "@services/*": ["app/services/*"],
       "@app/*": ["app/*"],
       "@assets/*": ["assets/*"],
-      "@env/*": ["environments/*"],
-      "@models/*": ["app/models/*"],
-      "@services/*": ["app/services/*"]
+      "@data/*": ["data/*"],
+      "@env/*": ["environments/*"]
     },
     "strict": true,
     "noImplicitOverride": true,
