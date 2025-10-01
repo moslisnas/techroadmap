@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Technology } from '@models/Technology.model';
 import { TechnologyService } from '@services/technology.service';
 import { Timeline } from '@app/roadmap/timeline/timeline';
+import { TechnologyStore } from '@app/stores/technology.store';
 
 @Component({
   selector: 'app-roadmap-element',
@@ -10,9 +11,9 @@ import { Timeline } from '@app/roadmap/timeline/timeline';
   styleUrl: './roadmap-element.css',
 })
 export class RoadmapElement {
-  tech!: Technology;
-
-  constructor(private tecnologyService: TechnologyService) {
-    this.tech = this.tecnologyService.getTechnology()!;
+  constructor(public technologyStore: TechnologyStore) {}
+  
+  get tech() {
+    return this.technologyStore.tech();
   }
 }

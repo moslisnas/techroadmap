@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Technology } from '@models/Technology.model';
 import { TechnologyVersion } from '@models/TechnologyVersion.model';
 import { TimelineTooltip } from '@app/roadmap/timeline-tooltip/timeline-tooltip';
-import { TechnologyService } from '@services/technology.service';
+import { TechnologyStore } from '@app/stores/technology.store';
 
 @Component({
   selector: 'app-timeline',
@@ -13,8 +13,7 @@ import { TechnologyService } from '@services/technology.service';
 export class Timeline {
   @ViewChild('nodeTooltip', { static: false }) nodeTooltipComponent!: TimelineTooltip;
   @ViewChild('periodTooltip', { static: false }) periodTooltipComponent!: TimelineTooltip;
-
-  tech!:Technology;
+  
   versions: TechnologyVersion[] = [];
   viewBoxWidth: number = 0;
   viewBoxHeight: number = 0;
@@ -32,8 +31,10 @@ export class Timeline {
   versionTooltipVisible: boolean = false;
   periodTooltipVisible: boolean = false;
 
-  constructor(private tecnologyService: TechnologyService) {
-    this.tech = this.tecnologyService.getTechnology()!;
+  constructor(public technologyStore: TechnologyStore) {}
+  
+  get tech():Technology {
+    return this.technologyStore.tech()!;
   }
 
   ngOnInit() {

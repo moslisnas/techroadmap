@@ -3,6 +3,7 @@ import { Technology } from '@models/Technology.model';
 import { RoadmapElement } from '@app/roadmap/roadmap-element/roadmap-element';
 import { ApiService } from '@services/api/Api.service';
 import { TechnologyService } from '@services/technology.service';
+import { TechnologyStore } from '@app/stores/technology.store';
 
 @Component({
   selector: 'app-roadmap-section',
@@ -15,7 +16,7 @@ export class RoadmapSection {
   @Input() techActive!: boolean;
   techSelected!: Technology;
 
-  constructor(private apiService:ApiService, private tecnologyService:TechnologyService){}
+  constructor(private technologyStore: TechnologyStore, private apiService:ApiService, private tecnologyService:TechnologyService){}
 
   ngOnInit() {
     if (this.techString && this.techString.length > 2) {
@@ -25,16 +26,9 @@ export class RoadmapSection {
             tech.name.toLowerCase().includes(this.techString.toLowerCase())
           );
           const techFiltered:any = techsFiltered[0];
-          //Obtain technology with all data //TODO: Improve the way to transfer this data to child components
+          // Obtain technology with all data
           if(techFiltered && techFiltered.id){
-            this.apiService.getTechnologyByIdWithVersions(techFiltered.id).subscribe({
-              next: (technologyData) => {
-                this.tecnologyService.setTechnology(technologyData);
-              },
-              error: (error) => {
-                console.error('Error obtaining data: technology', error);
-              }
-            });
+            this.technologyStore.loadTechWithDependencies(techFiltered.id);
           }
         },
         error: (error) => {
