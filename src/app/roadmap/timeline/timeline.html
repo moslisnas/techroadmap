@@ -5,7 +5,7 @@
     xmlns="http://www.w3.org/2000/svg"
     [attr.viewBox]="'0 0 ' + viewBoxWidth + ' ' + viewBoxHeight"
     role="img"
-    aria-label="Roadmap for {{ tech.name }} technology"
+    [attr.aria-label]="'Roadmap for ' + tech.name + ' technology'"
   >
     @for(period of periods; track period){
     <line
