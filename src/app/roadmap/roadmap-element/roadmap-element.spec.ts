@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Technology } from '@app/models/Technology.model';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+
 import { RoadmapElement } from './roadmap-element';
 
 describe('RoadmapElement', () => {
@@ -9,18 +11,11 @@ describe('RoadmapElement', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RoadmapElement],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RoadmapElement);
     component = fixture.componentInstance;
-    component.tech = {
-      name: 'Angular',
-      description: '',
-      url: '',
-      logo: '',
-      colors: {},
-      versions: [],
-    } as Technology;
     fixture.detectChanges();
   });
 

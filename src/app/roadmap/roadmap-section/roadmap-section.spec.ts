@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { RoadmapSection } from './roadmap-section';
 
@@ -9,6 +11,7 @@ describe('RoadmapSection', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RoadmapSection],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RoadmapSection);

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Technology } from '@models/Technology.model';
 import { RoadmapElement } from '@app/roadmap/roadmap-element/roadmap-element';
-import { ApiService } from '@services/api/Api.service';
+import { ApiService } from '@services/api/api.service';
 import { TechnologyService } from '@services/technology.service';
 import { TechnologyStore } from '@app/stores/technology.store';
 

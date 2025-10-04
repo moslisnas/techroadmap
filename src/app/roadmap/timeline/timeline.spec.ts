@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { Timeline } from './timeline';
 
@@ -8,9 +10,9 @@ describe('Timeline', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Timeline]
-    })
-    .compileComponents();
+      imports: [Timeline],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(Timeline);
     component = fixture.componentInstance;

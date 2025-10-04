@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { Router } from '@angular/router';
 
 import { Searcher } from './searcher';
-import { Router } from '@angular/router';
 import TechMockData from 'data/TechData';
 
 describe('Searcher', () => {
@@ -12,6 +14,7 @@ describe('Searcher', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Searcher],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Searcher);

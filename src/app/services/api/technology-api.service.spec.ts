@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { TechnologyApiService } from '@services/api/TechnologyApi.service';
+import { TechnologyApiService } from '@services/api/technology-api.service';
 
 describe('TechnologyApiService', () => {
   let service: TechnologyApiService;
