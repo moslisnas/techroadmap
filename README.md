@@ -27,6 +27,13 @@ On this website you can search for your favorite technology and find information
  3. After that you can run your application with:
  `pnpm start`
 
+ ### Testing
+ This web project has some tests implemented to ensure quality of the code, to ensure this quality you can:
+ 1. Execute unit tests:
+ `pnpm test`
+ 2. You can see also the quantity of code covered by tests:
+ `pnpm coverage`
+
  ## Related projects
  - Private (will be public soon): [API](https://github.com/moslisnas/techroadmap-api.git)
  - Private (will be public soon): [Database info](https://github.com/moslisnas/techroadmap-database.git)
