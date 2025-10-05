@@ -13,7 +13,7 @@ import { TechnologyStore } from '@app/stores/technology.store';
 export class Timeline {
   @ViewChild('nodeTooltip', { static: false }) nodeTooltipComponent!: TimelineTooltip;
   @ViewChild('periodTooltip', { static: false }) periodTooltipComponent!: TimelineTooltip;
-  
+
   versions: TechnologyVersion[] = [];
   viewBoxWidth: number = 0;
   viewBoxHeight: number = 0;
@@ -32,8 +32,8 @@ export class Timeline {
   periodTooltipVisible: boolean = false;
 
   constructor(public technologyStore: TechnologyStore) {}
-  
-  get tech():Technology {
+
+  get tech(): Technology {
     return this.technologyStore.tech()!;
   }
 
@@ -78,11 +78,11 @@ export class Timeline {
       let releaseYearString2: string = '';
       if (this.tech.versions[i].release_date) {
         let releaseDate: Date = new Date(this.tech.versions[i].release_date);
-        releaseYearString1 = releaseDate.toLocaleDateString("en-GB", {year: 'numeric'});
+        releaseYearString1 = releaseDate.toLocaleDateString('en-GB', { year: 'numeric' });
       }
-      if (this.tech.versions[i+1].release_date) {
-        let releaseDate: Date = new Date(this.tech.versions[i+1].release_date);
-        releaseYearString2 = releaseDate.toLocaleDateString("en-GB", {year: 'numeric'});
+      if (this.tech.versions[i + 1].release_date) {
+        let releaseDate: Date = new Date(this.tech.versions[i + 1].release_date);
+        releaseYearString2 = releaseDate.toLocaleDateString('en-GB', { year: 'numeric' });
       }
       this.periods.push({
         positionLineX1: positionLineX1,
@@ -108,7 +108,7 @@ export class Timeline {
       let releaseDateString: string = '';
       if (this.tech.versions[i].release_date) {
         let releaseDate: Date = new Date(this.tech.versions[i].release_date);
-        releaseDateString = releaseDate.toLocaleDateString("en-GB");
+        releaseDateString = releaseDate.toLocaleDateString('en-GB');
       }
       this.nodes.push({
         positionCircleX: this.circles[i][0],

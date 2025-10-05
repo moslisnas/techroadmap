@@ -10,7 +10,7 @@
       "@app/*": ["app/*"],
       "@assets/*": ["assets/*"],
       "@env/*": ["environments/*"],
-      "@mock/*": ["mock/*"]
+      "@mock/*": ["mocks/*"]
     },
     "strict": true,
     "noImplicitOverride": true,

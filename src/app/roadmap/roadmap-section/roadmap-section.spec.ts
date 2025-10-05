@@ -4,8 +4,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { environment } from '@env/environment';
-import { MockRoadmapElement } from '@mock/mock-roadmap-element';
-import { MockTimeline } from '@mock/mock-timeline';
+import { MockRoadmapElement } from '@mock/roadmap-element.mocks';
+import { MockTimeline } from '@mock/timeline.mocks';
 import TechMockData from '@mock/TechData';
 import { TechnologyStore } from '@app/stores/technology.store';
 import { RoadmapSection } from './roadmap-section';
@@ -19,7 +19,6 @@ describe('RoadmapSection', () => {
 
   beforeEach(async () => {
     technologyStoreSpy = jasmine.createSpyObj('TechnologyStore', ['loadTechWithDependencies']);
-
     (technologyStoreSpy as any).tech = signal(null);
 
     await TestBed.configureTestingModule({

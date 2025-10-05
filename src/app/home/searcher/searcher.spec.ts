@@ -4,7 +4,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { Router } from '@angular/router';
 
 import { environment } from '@env/environment';
-import TechMockData from 'mock/TechData';
+import TechMockData from '@mock/TechData';
 import { Searcher } from './searcher';
 
 describe('Searcher', () => {
@@ -28,10 +28,6 @@ describe('Searcher', () => {
 
     const req = httpMock.expectOne(`${environment.apiUrl}${environment.apiVersion}/technology`);
     req.flush(mockTechnologies);
-  });
-
-  afterEach(() => {
-    httpMock.verify();
   });
 
   it('should create', () => {

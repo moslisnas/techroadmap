@@ -25,8 +25,6 @@ export class TimelineTooltip {
         this.tooltipDescription = element.lineTooltipDescription;
         this.tooltipPosition = [element.positionTooltipPeriodX, element.positionTooltipPeriodY];
         break;
-      default:
-        break;
     }
   }
   hideTooltip() {
