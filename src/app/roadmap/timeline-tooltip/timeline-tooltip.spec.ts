@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { mockNodeTooltipComponent } from '@mock/timeline.mocks';
-import { mockPeriodTooltipComponent } from '@mock/timeline.mocks';
+import { mockNodeTooltipComponent } from '@mock/components/timeline.mocks';
+import { mockPeriodTooltipComponent } from '@mock/components/timeline.mocks';
 import { TimelineTooltip } from './timeline-tooltip';
 
 describe('TimelineTooltip', () => {

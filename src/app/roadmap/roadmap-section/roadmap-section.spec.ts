@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal } from '@angular/core';
-import { provideHttpClient } from '@angular/common/http';
+import { HttpErrorResponse, provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { environment } from '@env/environment';
-import { MockRoadmapElement } from '@mock/roadmap-element.mocks';
-import { MockTimeline } from '@mock/timeline.mocks';
+import { MockRoadmapElement } from '@mock/components/roadmap-element.mocks';
+import { MockTimeline } from '@mock/components/timeline.mocks';
 import TechMockData from '@mock/TechData';
 import { TechnologyStore } from '@app/stores/technology.store';
 import { RoadmapSection } from './roadmap-section';
@@ -53,5 +53,21 @@ describe('RoadmapSection', () => {
     expect(technologyStoreSpy.loadTechWithDependencies).toHaveBeenCalledWith(
       mockTechnologies[0].id
     );
+  });
+  it('should log error when API call fails', () => {
+    // Arrange
+    component.techString = 'Angular';
+    component.techActive = true;
+    const consoleSpy = spyOn(console, 'error');
+    // Act
+    fixture.detectChanges();
+    const req = httpMock.expectOne(`${environment.apiUrl}${environment.apiVersion}/technology`);
+    req.error(new ErrorEvent('Network error'));
+    // Assert
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'Error obtaining data: technologies',
+      jasmine.any(HttpErrorResponse)
+    );
+    expect(technologyStoreSpy.loadTechWithDependencies).not.toHaveBeenCalled();
   });
 });

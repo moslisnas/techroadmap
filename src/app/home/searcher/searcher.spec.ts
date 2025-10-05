@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { HttpErrorResponse, provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
 
@@ -32,6 +32,24 @@ describe('Searcher', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should log error when API call fails', () => {
+    // Arrange
+    const consoleSpy = spyOn(console, 'error');
+    const errorFixture = TestBed.createComponent(Searcher);
+    const errorComponent = errorFixture.componentInstance;
+    const errorHttpMock = TestBed.inject(HttpTestingController);
+    // Act
+    errorFixture.detectChanges();
+    const req = errorHttpMock.expectOne(`${environment.apiUrl}${environment.apiVersion}/technology`);
+    req.error(new ErrorEvent('Network error'));
+    // Assert
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'Error obtaining data: technologies',
+      jasmine.any(HttpErrorResponse)
+    );
+    expect(errorComponent.technologies.length).toBe(0);
   });
 
   it('searcher input should redirect when searchValue is valid', () => {

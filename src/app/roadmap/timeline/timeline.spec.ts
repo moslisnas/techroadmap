@@ -3,7 +3,7 @@ import { signal } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 
-import { MockTimelineTooltip } from '@mock/timeline-tooltip.mocks';
+import { MockTimelineTooltip } from '@mock/components/timeline-tooltip.mocks';
 import TechMockData from '@mock/TechData';
 import { TechnologyStore } from '@app/stores/technology.store';
 import { Timeline } from './timeline';
@@ -12,7 +12,7 @@ import {
   mockNodeTooltipComponent,
   mockPeriod,
   mockPeriodTooltipComponent,
-} from '@mock/timeline.mocks';
+} from '@mock/components/timeline.mocks';
 
 describe('Timeline', () => {
   let component: Timeline;
