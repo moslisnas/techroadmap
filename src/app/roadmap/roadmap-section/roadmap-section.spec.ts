@@ -1,35 +1,58 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { signal } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
+import { environment } from '@env/environment';
+import { MockRoadmapElement } from '@mock/mock-roadmap-element';
+import { MockTimeline } from '@mock/mock-timeline';
+import TechMockData from '@mock/TechData';
+import { TechnologyStore } from '@app/stores/technology.store';
 import { RoadmapSection } from './roadmap-section';
 
 describe('RoadmapSection', () => {
   let component: RoadmapSection;
   let fixture: ComponentFixture<RoadmapSection>;
+  let httpMock: HttpTestingController;
+  let technologyStoreSpy: jasmine.SpyObj<TechnologyStore>;
+  const mockTechnologies = TechMockData;
 
   beforeEach(async () => {
+    technologyStoreSpy = jasmine.createSpyObj('TechnologyStore', ['loadTechWithDependencies']);
+
+    (technologyStoreSpy as any).tech = signal(null);
+
     await TestBed.configureTestingModule({
       imports: [RoadmapSection],
-      providers: [provideHttpClient(), provideHttpClientTesting()],
+      declarations: [MockRoadmapElement, MockTimeline],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        { provide: TechnologyStore, useValue: technologyStoreSpy },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RoadmapSection);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   it('should create', () => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
-  it('should load roadmap-element variables when techString find one element', () => {
+  it('should call technologyStore.loadTechWithDependencies when techString matches a technology', () => {
     // Arrange
     component.techString = 'Angular';
     component.techActive = true;
     // Act
-    component.ngOnInit();
+    fixture.detectChanges();
+    const req = httpMock.expectOne(`${environment.apiUrl}${environment.apiVersion}/technology`);
+    req.flush(mockTechnologies);
     // Asserts
-    expect(component.techSelected).toBeDefined();
+    expect(technologyStoreSpy.loadTechWithDependencies).toHaveBeenCalledWith(
+      mockTechnologies[0].id
+    );
   });
 });

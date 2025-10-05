@@ -9,8 +9,8 @@
       "@services/*": ["app/services/*"],
       "@app/*": ["app/*"],
       "@assets/*": ["assets/*"],
-      "@data/*": ["data/*"],
-      "@env/*": ["environments/*"]
+      "@env/*": ["environments/*"],
+      "@mock/*": ["mock/*"]
     },
     "strict": true,
     "noImplicitOverride": true,

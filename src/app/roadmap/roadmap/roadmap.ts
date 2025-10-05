@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RelatedSection } from '@app/roadmap/related-section/related-section';
 import { RoadmapSection } from '@app/roadmap/roadmap-section/roadmap-section';
-import TechMockData from '@data/TechData';
+import TechMockData from 'mock/TechData';
 
 @Component({
   selector: 'app-roadmap',

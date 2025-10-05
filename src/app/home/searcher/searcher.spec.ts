@@ -1,15 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
 
+import { environment } from '@env/environment';
+import TechMockData from 'mock/TechData';
 import { Searcher } from './searcher';
-import TechMockData from 'data/TechData';
 
 describe('Searcher', () => {
   let component: Searcher;
   let fixture: ComponentFixture<Searcher>;
+  let httpMock: HttpTestingController;
   let router: Router;
+  const mockTechnologies = TechMockData;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -20,7 +23,15 @@ describe('Searcher', () => {
     fixture = TestBed.createComponent(Searcher);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
+    httpMock = TestBed.inject(HttpTestingController);
     fixture.detectChanges();
+
+    const req = httpMock.expectOne(`${environment.apiUrl}${environment.apiVersion}/technology`);
+    req.flush(mockTechnologies);
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 
   it('should create', () => {
@@ -38,7 +49,7 @@ describe('Searcher', () => {
       queryParams: { tech: 'angular' },
     });
   });
-  it('searcher should show dropdown when input > 1 character and when there are results', () => {
+  it('searcher should show dropdown when input > 1 character and if there are results', () => {
     // Arrange
     component.searchValue = 'angular';
     // Act
@@ -46,6 +57,7 @@ describe('Searcher', () => {
     // Assert
     expect(component.showDropdown).toBeTrue();
     expect(component.filteredTech.length).toBeGreaterThan(0);
+    expect(component.filteredTech[0].name).toBe('Angular');
   });
   it("searcher shouldn't show dropdown when input <= 1 character", () => {
     // Arrange
@@ -59,13 +71,13 @@ describe('Searcher', () => {
 
   it('dropdown element should redirect when is clicked', () => {
     // Arrange
-    component.filteredTech = TechMockData;
+    component.filteredTech = mockTechnologies;
     const navigateSpy = spyOn(router, 'navigate').and.resolveTo(true);
     // Act
     component.selectTech(component.filteredTech[0]);
     // Assert
     expect(navigateSpy).toHaveBeenCalledWith(['/roadmap'], {
-      queryParams: { tech: TechMockData[0].name },
+      queryParams: { tech: mockTechnologies[0].name },
     });
   });
 });

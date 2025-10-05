@@ -2,6 +2,7 @@ import { Technology } from '@models/Technology.model';
 
 const TechMockObjectData: any = {
   angular: {
+    id: 1,
     name: 'Angular',
     description: 'A platform for building mobile and desktop web applications.',
     url: 'https://angular.dev/',
@@ -26,6 +27,7 @@ const TechMockObjectData: any = {
     ],
   },
   nodejs: {
+    id: 2,
     name: 'Node.js',
     description: "A JavaScript runtime built on Chrome's V8 JavaScript engine.",
     url: 'https://nodejs.org/',
@@ -42,6 +44,7 @@ const TechMockObjectData: any = {
     ],
   },
   react: {
+    id: 3,
     name: 'React',
     description: 'A JavaScript library for building user interfaces.',
     url: 'https://reactjs.org/',
@@ -56,6 +59,7 @@ const TechMockObjectData: any = {
     ],
   },
   vue: {
+    id: 4,
     name: 'Vue.js',
     description: 'The Progressive JavaScript Framework.',
     url: 'https://vuejs.org/',

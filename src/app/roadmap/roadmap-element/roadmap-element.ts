@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { Technology } from '@models/Technology.model';
-import { TechnologyService } from '@services/technology.service';
 import { Timeline } from '@app/roadmap/timeline/timeline';
 import { TechnologyStore } from '@app/stores/technology.store';
 

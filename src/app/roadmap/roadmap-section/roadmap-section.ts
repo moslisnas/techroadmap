@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Technology } from '@models/Technology.model';
 import { RoadmapElement } from '@app/roadmap/roadmap-element/roadmap-element';
 import { ApiService } from '@services/api/api.service';
-import { TechnologyService } from '@services/technology.service';
 import { TechnologyStore } from '@app/stores/technology.store';
 
 @Component({
@@ -14,9 +12,8 @@ import { TechnologyStore } from '@app/stores/technology.store';
 export class RoadmapSection {
   @Input() techString!: string;
   @Input() techActive!: boolean;
-  techSelected!: Technology;
 
-  constructor(private technologyStore: TechnologyStore, private apiService:ApiService, private tecnologyService:TechnologyService){}
+  constructor(private technologyStore: TechnologyStore, private apiService:ApiService){}
 
   ngOnInit() {
     if (this.techString && this.techString.length > 2) {
