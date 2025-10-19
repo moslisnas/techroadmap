@@ -1,46 +1,15 @@
-<div class="timelineContainer p-5">
-  <app-timeline-tooltip type="node" #nodeTooltip [class.hidden]="!versionTooltipVisible" />
-  <app-timeline-tooltip type="period" #periodTooltip [class.hidden]="!periodTooltipVisible" />
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    [attr.viewBox]="'0 0 ' + viewBoxWidth + ' ' + viewBoxHeight"
-    role="img"
-    [attr.aria-label]="'Roadmap for ' + tech.name + ' technology'"
-  >
-    @for(period of periods; track period){
-    <line
-      [attr.x1]="period.positionLineX1"
-      [attr.y1]="period.positionLineY1"
-      [attr.x2]="period.positionLineX2"
-      [attr.y2]="period.positionLineY2"
-      [style.stroke]="lineColor"
-      [style.stroke-width]="lineWidth"
-      (mouseenter)="showPeriodTooltip(period, $event.target)"
-      (mouseleave)="hidePeriodTooltip($event.target)"
-      class="transition-all duration-300"
-    ></line>
-    } @for(node of nodes; track node){
-    <ng-container>
-      <text
-        [attr.x]="node.positionTextNodeX"
-        [attr.y]="node.positionTextNodeY"
-        [style]="node.textFontStyle"
-      >
-        {{ node.text }}
-      </text>
-      <circle
-        [attr.cx]="node.positionCircleX"
-        [attr.cy]="node.positionCircleY"
-        [attr.r]="nodeRadius"
-        [attr.tabindex]="0"
-        [style.stroke]="dotColor"
-        [attr.fill]="dotFillColor"
-        class="stroke-1 cursor-pointer transition-all duration-300"
-        (mouseenter)="showVersionTooltip(node, $event.target)"
-        (mouseleave)="hideVersionTooltip($event.target)"
-        (click)="openVersionUrl(node)"
-      ></circle>
-    </ng-container>
-    }
-  </svg>
+<div class="flex flex-col items-center space-y-5 p-5">
+  @for (nodeRow of nodeRows; track $index) {
+  <app-timeline-row
+    [direction]="$index % 2 === 0 ? 'right' : 'left'"
+    [nodes]="nodeRow.nodes"
+    [periods]="nodeRow.periods"
+  />
+  @if(nodeRow.periodBetweenRows){
+  <div
+    [style.right]="$index % 2 === 0 ? '10rem': 'auto'"
+    [style.left]="$index % 2 !== 0 ? '10rem': 'auto'"
+    class="absolute bg-blue-500 h-20 w-5"
+  ></div>
+  } }
 </div>
