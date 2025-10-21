@@ -5,13 +5,6 @@
 >
   @for(node of nodes; track $index) {
   <app-timeline-node [style.grid-area]="node.gridArea" [node]="node" />
-  <!--@if(nodeRow.periodBetweenRows){
-  <div
-    [style.right]="$index % 2 === 0 ? '10rem': 'auto'"
-    [style.left]="$index % 2 !== 0 ? '10rem': 'auto'"
-    class="absolute bg-blue-500 h-20 w-5"
-  ></div>
-  }-->
   } @for(perid of periods; track $index) {
   <app-timeline-period
     [style.grid-area]="this.periods[$index].gridArea"

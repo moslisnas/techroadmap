@@ -20,7 +20,7 @@ export class Timeline {
   periods: any[] = [];
   nodes: any[] = [];
   nodeRows: any[] = [];
-  nodesPerRow: number = 7;
+  nodesPerRow: number = 6; //TODO: calculate based on screen size
   gridDisplacementX: number = 1;
   gridDisplacementY: number = 1;
   initialDisplacementX: number = 1;
@@ -28,6 +28,8 @@ export class Timeline {
   periodGridHeight: number = 1;
   curverPeriodGridHeight: number = 2;
   numGridColumns: number = 1;
+  nodeWidthHeight: string = '2.5rem';
+  periodWidth: string = '6.5rem';
 
   constructor(public technologyStore: TechnologyStore) {}
 
@@ -44,7 +46,6 @@ export class Timeline {
       } else if (this.tech.versions.length === 1) {
         this.createNodes();
       }
-      this.createNodeRows();
     }
   }
   // Graphyc elements
@@ -88,6 +89,7 @@ export class Timeline {
       this.periods.push({
         gridArea: `${gridAreaY1} / ${gridAreaX1} / ${gridAreaY2} / ${gridAreaX2}`,
         color: this.tech.color_primary,
+        periodWidth: this.periodWidth,
         lineTooltipDescription: releaseYearString1 + ' - ' + releaseYearString2,
         styleType: styleType
       });
@@ -117,6 +119,7 @@ export class Timeline {
       this.nodes.push({
         gridArea: `${gridAreaY1} / ${gridAreaX1} / ${gridAreaY2} / ${gridAreaX2}`,
         text: this.tech.versions[i].name,
+        size: this.nodeWidthHeight,
         color: this.tech.color_primary,
         textFontStyle: 'font-size: 5px; font-weight: bold',
         nodeTooltipTitle: this.tech.versions[i].name + ' - ' + releaseDateString,
@@ -127,27 +130,13 @@ export class Timeline {
     }
   }
 
-  generateGridTemplateColumns(n:number) {
+  generateGridTemplateColumns(numNodes:number) {
     let parts = [];
-    for (let i = 0; i < n; i++) {
-      parts.push('5rem');
-      parts.push('2.5rem');
+    for (let i = 0; i < numNodes; i++) {
+      parts.push(this.periodWidth);
+      parts.push(this.nodeWidthHeight);
     }
-    parts.push('5rem');
+    parts.push(this.periodWidth);
     return parts.join(' ');
-  }
-  createNodeRows() {
-    for (let i: number = 0; i < this.nodes.length; i += this.nodesPerRow) {
-      let periodBetweenRows =
-        this.nodes.length > i + this.nodesPerRow
-          ? this.periods[i + this.nodesPerRow - i / this.nodesPerRow]
-          : null;
-      this.nodeRows.push({
-        nodes: this.nodes.slice(i, i + this.nodesPerRow),
-        periods: this.periods.slice(i, i + this.nodesPerRow - 1),
-        periodBetweenRows: periodBetweenRows,
-      });
-    }
-    console.log(this.nodeRows);
   }
 }

@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
   selector: 'app-timeline-node',
   imports: [],
   templateUrl: './timeline-node.html',
-  styleUrl: './timeline-node.css'
+  styleUrl: './timeline-node.css',
 })
 export class TimelineNode {
   @Input() node: any;

@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
   selector: 'app-timeline-period',
   imports: [],
   templateUrl: './timeline-period.html',
-  styleUrl: './timeline-period.css'
+  styleUrl: './timeline-period.css',
 })
 export class TimelinePeriod {
   @Input() period: any;

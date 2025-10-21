@@ -1,1 +1,9 @@
-<div [style.background-color]="period.color" class="w-20 h-1.75 text-xs">{{period.lineTooltipDescription + period.styleType}}</div>
+@if(period.styleType==='straight'){
+<div [style.background-color]="period.color" [style.width]="period.width" class="h-1.75 text-xs">
+  {{ period.lineTooltipDescription + period.styleType }}
+</div>
+} @if(period.styleType==='curved'){
+<div [style.width]="period.width" class="h-8">
+  {{ period.lineTooltipDescription + period.styleType }}
+</div>
+}

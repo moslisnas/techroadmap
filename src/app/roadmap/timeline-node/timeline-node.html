@@ -1,1 +1,8 @@
-<div [style.background-color]="node.color" class="w-10 h-10 rounded-full">{{node.text}}</div>
+<div
+  [style.background-color]="node.color"
+  [style.width]="node.size"
+  [style.height]="node.size"
+  class="rounded-full"
+>
+  {{ node.text }}
+</div>
