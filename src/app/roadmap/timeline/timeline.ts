@@ -128,7 +128,7 @@ export class Timeline {
         nodeTooltipTitle: this.tech.versions[i].name + ' - ' + releaseDateString,
         nodeTooltipDescription: this.tech.versions[i].description,
         url: this.tech.versions[i].url,
-        //lts: this.tech.versions[i].lts,
+        //lts: this.tech.versions[i].lts, //TODO
       });
     }
   }
