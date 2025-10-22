@@ -54,6 +54,7 @@ export class Timeline {
       let releaseYearString1: string = '';
       let releaseYearString2: string = '';
       let styleType = 'straight';
+      let direction = 'right';
       if (this.tech.versions[i].release_date) {
         let releaseDate: Date = new Date(this.tech.versions[i].release_date);
         releaseYearString1 = releaseDate.toLocaleDateString('en-GB', { year: 'numeric' });
@@ -71,9 +72,11 @@ export class Timeline {
         gridAreaX1 =
           this.gridDisplacementX + this.initialDisplacementX + (i % this.nodesPerRow) * 2 + 1;
         gridAreaX2 = gridAreaX1 + 1;
+        direction = 'right';
       } else {
         gridAreaX1 = this.nodesPerRow * 2 - (i % this.nodesPerRow) * 2;
         gridAreaX2 = gridAreaX1 - 1;
+        direction = 'left';
       }
 
       gridAreaY1 = this.gridDisplacementY + Math.floor(i / this.nodesPerRow);
@@ -84,14 +87,14 @@ export class Timeline {
       } else {
         gridAreaY2 = gridAreaY1 + this.periodGridHeight;
       }
-      console.log('i:' + i + ' gridAreaY2:' + gridAreaY2);
       //Add period to array of periods
       this.periods.push({
         gridArea: `${gridAreaY1} / ${gridAreaX1} / ${gridAreaY2} / ${gridAreaX2}`,
         color: this.tech.color_primary,
         periodWidth: this.periodWidth,
+        styleType: styleType,
+        direction: direction,
         lineTooltipDescription: releaseYearString1 + ' - ' + releaseYearString2,
-        styleType: styleType
       });
     }
   }
@@ -130,7 +133,7 @@ export class Timeline {
     }
   }
 
-  generateGridTemplateColumns(numNodes:number) {
+  generateGridTemplateColumns(numNodes: number) {
     let parts = [];
     for (let i = 0; i < numNodes; i++) {
       parts.push(this.periodWidth);

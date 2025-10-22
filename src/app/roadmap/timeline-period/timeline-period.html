@@ -1,9 +1,16 @@
 @if(period.styleType==='straight'){
-<div [style.background-color]="period.color" [style.width]="period.width" class="h-1.75 text-xs">
-  {{ period.lineTooltipDescription + period.styleType }}
-</div>
+<div [style.background-color]="period.color" [style.width]="period.width" class="h-1.75"></div>
 } @if(period.styleType==='curved'){
-<div [style.width]="period.width" class="h-8">
-  {{ period.lineTooltipDescription + period.styleType }}
-</div>
+@if(period.direction==='right'){
+<div
+  class="w-10.5 h-21 rounded-r-full border-t-6 border-b-6 border-r-6 justify-self-start"
+  [style.border-color]="period.color"
+></div>
+}
+@if(period.direction==='left'){
+<div
+  class="w-10.5 h-21 rounded-l-full border-t-6 border-b-6 border-l-6 justify-self-end"
+  [style.border-color]="period.color"
+></div>
+}
 }
