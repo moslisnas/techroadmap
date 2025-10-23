@@ -8,10 +8,13 @@ import { Component, Input } from '@angular/core';
 })
 export class TimelineTooltip {
   @Input() type: 'node' | 'period' = 'node';
-  tooltipTitle: String = '';
-  tooltipDescription: String = '';
-  tooltipNote: String = '';
-  tooltipPosition: number[] = [0, 0];
+  tooltipTitle: String|null = null;
+  tooltipDescription: String|null = null;
+  tooltipNote: String|null = null;
+
+  get visible(): boolean {
+    return !!this.tooltipTitle || !!this.tooltipDescription || !!this.tooltipNote;
+  }
 
   showTooltip(element: any) {
     switch (this.type) {
@@ -19,11 +22,9 @@ export class TimelineTooltip {
         this.tooltipTitle = element.nodeTooltipTitle;
         this.tooltipDescription = element.nodeTooltipDescription;
         this.tooltipNote = 'Click for more information';
-        this.tooltipPosition = [element.positionTooltipNodeX, element.positionTooltipNodeY];
         break;
       case 'period':
         this.tooltipDescription = element.periodTooltipDescription;
-        this.tooltipPosition = [element.positionTooltipPeriodX, element.positionTooltipPeriodY];
         break;
     }
   }
@@ -31,6 +32,5 @@ export class TimelineTooltip {
     this.tooltipTitle = '';
     this.tooltipDescription = '';
     this.tooltipNote = '';
-    this.tooltipPosition = [0, 0];
   }
 }

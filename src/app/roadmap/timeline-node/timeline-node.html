@@ -1,5 +1,11 @@
+<app-timeline-tooltip
+  type="node"
+  #nodeTooltip
+  [class.opacity-0]="!tooltipVisible"
+  [class.opacity-100]="tooltipVisible"
+  [class.pointer-events-none]="!tooltipVisible"
+/>
 <div class="relative flex items-center justify-center">
-  <app-timeline-tooltip type="node" #nodeTooltip [class.hidden]="!tooltipVisible" />
   <span
     style="transform: translate(-50%, -125%)"
     class="absolute text-sm top-0 left-1/2 whitespace-nowrap font-bold"
@@ -10,7 +16,7 @@
     [style.border-color]="node.color"
     [style.width]="node.size"
     [style.height]="node.size"
-    class="rounded-full cursor-pointer border-4 transition-all duration-300 hover:scale-125"
+    class="rounded-full cursor-pointer border-4 shadow-md transition-all duration-300 hover:scale-125"
     (mouseenter)="showVersionTooltip(node)"
     (mouseleave)="hideVersionTooltip()"
     (click)="openVersionUrl(node)"
