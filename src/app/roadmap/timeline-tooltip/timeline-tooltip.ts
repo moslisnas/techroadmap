@@ -22,7 +22,7 @@ export class TimelineTooltip {
         this.tooltipPosition = [element.positionTooltipNodeX, element.positionTooltipNodeY];
         break;
       case 'period':
-        this.tooltipDescription = element.lineTooltipDescription;
+        this.tooltipDescription = element.periodTooltipDescription;
         this.tooltipPosition = [element.positionTooltipPeriodX, element.positionTooltipPeriodY];
         break;
     }

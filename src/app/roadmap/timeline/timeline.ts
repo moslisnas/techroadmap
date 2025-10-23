@@ -1,21 +1,17 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Technology } from '@models/Technology.model';
 import { TechnologyVersion } from '@models/TechnologyVersion.model';
 import { TechnologyStore } from '@app/stores/technology.store';
-import { TimelineTooltip } from '@app/roadmap/timeline-tooltip/timeline-tooltip';
-import { TimelinePeriod } from '../timeline-period/timeline-period';
-import { TimelineNode } from '../timeline-node/timeline-node';
+import { TimelinePeriod } from '@app/roadmap/timeline-period/timeline-period';
+import { TimelineNode } from '@app/roadmap/timeline-node/timeline-node';
 
 @Component({
   selector: 'app-timeline',
-  imports: [TimelineTooltip, TimelinePeriod, TimelineNode],
+  imports: [TimelinePeriod, TimelineNode],
   templateUrl: './timeline.html',
   styleUrl: './timeline.css',
 })
 export class Timeline {
-  @ViewChild('nodeTooltip', { static: false }) nodeTooltipComponent!: TimelineTooltip;
-  @ViewChild('periodTooltip', { static: false }) periodTooltipComponent!: TimelineTooltip;
-
   versions: TechnologyVersion[] = [];
   periods: any[] = [];
   nodes: any[] = [];
@@ -94,7 +90,7 @@ export class Timeline {
         periodWidth: this.periodWidth,
         styleType: styleType,
         direction: direction,
-        lineTooltipDescription: releaseYearString1 + ' - ' + releaseYearString2,
+        periodTooltipDescription: releaseYearString1 + ' - ' + releaseYearString2,
       });
     }
   }
