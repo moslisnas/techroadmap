@@ -3,6 +3,8 @@
     class="absolute border-1 p-1 rounded shadow-lg bg-white z-1"
     [style.left.px]="tooltipPosition[0]"
     [style.top.px]="tooltipPosition[1]"
+    [style.transform]="type=='node' ? 'translate(-46%, -150%)' : 'translate(-6.5%, -125%)'"
+    [style.width]="type=='node' ? '31.25rem' : '7.5rem'"
   >
     @if(tooltipTitle!==null && tooltipTitle!==''){<p class="font-bold">{{ tooltipTitle }}</p>}
     @if(tooltipDescription!==null && tooltipDescription!==''){<p>{{ tooltipDescription }}</p>}
