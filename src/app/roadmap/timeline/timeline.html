@@ -1,14 +1,14 @@
 <div class="flex justify-center mt-12"><div
   [style.grid-template-rows]="'repeat(' + this.nodeRows.length + ', 1fr)'"
-  [style.grid-template-columns]="generateGridTemplateColumns(this.nodesPerRow)"
+  [style.grid-template-columns]="gridTemplateColumns"
   class="grid gap-y-10 items-center"
 >
   @for(node of nodes; track $index) {
   <app-timeline-node [style.grid-area]="node.gridArea" [node]="node" />
   } @for(perid of periods; track $index) {
   <app-timeline-period
-    [style.grid-area]="this.periods[$index].gridArea"
-    [period]="this.periods[$index]"
+    [style.grid-area]="periods[$index].gridArea"
+    [period]="periods[$index]"
   />
   }
 </div>

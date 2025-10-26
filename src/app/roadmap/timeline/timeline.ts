@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Technology } from '@models/Technology.model';
 import { TechnologyVersion } from '@models/TechnologyVersion.model';
 import { TechnologyStore } from '@app/stores/technology.store';
@@ -16,14 +16,14 @@ export class Timeline {
   periods: any[] = [];
   nodes: any[] = [];
   nodeRows: any[] = [];
-  nodesPerRow: number = 6; //TODO: calculate based on screen size
+  nodesPerRow: number = 3;
   gridDisplacementX: number = 1;
   gridDisplacementY: number = 1;
   initialDisplacementX: number = 1;
   nodeGridHeight: number = 1;
   periodGridHeight: number = 1;
   curverPeriodGridHeight: number = 2;
-  numGridColumns: number = 1;
+  gridTemplateColumns: string = '';
   nodeWidthHeight: string = '2.5rem';
   periodWidth: string = '6.5rem';
 
@@ -34,9 +34,10 @@ export class Timeline {
   }
 
   ngOnInit() {
+    this.calculateNodesPerRow();
     if (this.tech.versions !== null) {
       if (this.tech.versions.length > 1) {
-        this.numGridColumns = this.tech.versions.length * 2 + 1;
+        this.gridTemplateColumns = this.generateGridTemplateColumns(this.nodesPerRow);
         this.createPeriods();
         this.createNodes();
       } else if (this.tech.versions.length === 1) {
@@ -44,13 +45,60 @@ export class Timeline {
       }
     }
   }
+
+  // Respsonsive timeline methods
+  @HostListener('window:resize')
+  onResize() {
+    this.calculateNodesPerRow();
+    this.gridTemplateColumns = this.generateGridTemplateColumns(this.nodesPerRow);
+    this.updateGridAreas();
+    this.updatePeriodDirectionsAndStyles();
+  }
+  calculateNodesPerRow() {
+    const windowWidth = window.innerWidth;
+
+    const remToPx = 16;
+    const nodeWidthPx = parseFloat(this.nodeWidthHeight.replace('rem', '')) * remToPx;
+    const periodWidthPx = parseFloat(this.periodWidth.replace('rem', '')) * remToPx;
+    const blockWidth = nodeWidthPx + periodWidthPx;
+
+    const estimatedNodes = Math.floor(windowWidth / blockWidth);
+    this.nodesPerRow = Math.max(3, estimatedNodes - 2);
+    console.log(`🧩 nodesPerRow recalculated: ${this.nodesPerRow}`);
+  }
+  updateGridAreas() {
+    for(let i:number=0; i<this.nodes.length; i++){
+      this.nodes[i].gridArea = this.createNodeGridAreas(i);
+    }
+    for(let i:number=0; i<this.nodes.length-1; i++){
+      this.periods[i].gridArea = this.createPeriodGridAreas(i);
+    }
+  }
+  updatePeriodDirectionsAndStyles() {
+    for(let i:number=0; i<this.nodes.length-1; i++){
+      //Period direction
+      this.periods[i].direction = 'right';
+      if (Math.floor((i * 2) / (this.nodesPerRow * 2)) % 2 === 0) {
+        this.periods[i].direction = 'right';
+      } else {
+        this.periods[i].direction = 'left';
+      }
+      //Curved periods
+      this.periods[i].styleType = 'straight';
+      if ((i + 1) % this.nodesPerRow === 0 && i !== 0) {
+        this.periods[i].styleType = 'curved';
+      }
+    }
+    console.log(`🧩 periods recalculated: ${this.periods}`);
+  }
   // Graphyc elements
   createPeriods() {
     for (let i = 0; i < this.tech.versions.length - 1; i++) {
       let releaseYearString1: string = '';
       let releaseYearString2: string = '';
-      let styleType = 'straight';
-      let direction = 'right';
+      let gridArea: string = '';
+      let styleType: string = 'straight';
+      let direction: string = 'right';
       if (this.tech.versions[i].release_date) {
         let releaseDate: Date = new Date(this.tech.versions[i].release_date);
         releaseYearString1 = releaseDate.toLocaleDateString('en-GB', { year: 'numeric' });
@@ -60,32 +108,20 @@ export class Timeline {
         releaseYearString2 = releaseDate.toLocaleDateString('en-GB', { year: 'numeric' });
       }
       //Position at timeline component grid
-      let gridAreaX1: number = 0;
-      let gridAreaX2: number = 0;
-      let gridAreaY1: number = 0;
-      let gridAreaY2: number = 0;
+      gridArea = this.createPeriodGridAreas(i);
+      //Period direction
       if (Math.floor((i * 2) / (this.nodesPerRow * 2)) % 2 === 0) {
-        gridAreaX1 =
-          this.gridDisplacementX + this.initialDisplacementX + (i % this.nodesPerRow) * 2 + 1;
-        gridAreaX2 = gridAreaX1 + 1;
         direction = 'right';
       } else {
-        gridAreaX1 = this.nodesPerRow * 2 - (i % this.nodesPerRow) * 2;
-        gridAreaX2 = gridAreaX1 - 1;
         direction = 'left';
       }
-
-      gridAreaY1 = this.gridDisplacementY + Math.floor(i / this.nodesPerRow);
       //Curved periods
       if ((i + 1) % this.nodesPerRow === 0 && i !== 0) {
         styleType = 'curved';
-        gridAreaY2 = gridAreaY1 + this.curverPeriodGridHeight;
-      } else {
-        gridAreaY2 = gridAreaY1 + this.periodGridHeight;
       }
       //Add period to array of periods
       this.periods.push({
-        gridArea: `${gridAreaY1} / ${gridAreaX1} / ${gridAreaY2} / ${gridAreaX2}`,
+        gridArea: gridArea,
         color: this.tech.color_primary,
         periodWidth: this.periodWidth,
         styleType: styleType,
@@ -94,29 +130,48 @@ export class Timeline {
       });
     }
   }
+  createPeriodGridAreas(periodIndex: number) {
+    let gridAreaX1: number = 0;
+    let gridAreaX2: number = 0;
+    let gridAreaY1: number = 0;
+    let gridAreaY2: number = 0;
+    if (Math.floor((periodIndex * 2) / (this.nodesPerRow * 2)) % 2 === 0) {
+      gridAreaX1 =
+        this.gridDisplacementX +
+        this.initialDisplacementX +
+        (periodIndex % this.nodesPerRow) * 2 +
+        1;
+      gridAreaX2 = gridAreaX1 + 1;
+    } else {
+      gridAreaX1 = this.nodesPerRow * 2 - (periodIndex % this.nodesPerRow) * 2;
+      gridAreaX2 = gridAreaX1 - 1;
+    }
+
+    gridAreaY1 = this.gridDisplacementY + Math.floor(periodIndex / this.nodesPerRow);
+    //Curved periods
+    if ((periodIndex + 1) % this.nodesPerRow === 0 && periodIndex !== 0) {
+      gridAreaY2 = gridAreaY1 + this.curverPeriodGridHeight;
+    } else {
+      gridAreaY2 = gridAreaY1 + this.periodGridHeight;
+    }
+
+    return `${gridAreaY1} / ${gridAreaX1} / ${gridAreaY2} / ${gridAreaX2}`;
+  }
+
   createNodes() {
     for (let i = 0; i < this.tech.versions.length; i++) {
       let releaseDateString: string = '';
+      let gridArea: string = '';
       if (this.tech.versions[i].release_date) {
         let releaseDate: Date = new Date(this.tech.versions[i].release_date);
         releaseDateString = releaseDate.toLocaleDateString('en-GB');
       }
       //Position at timeline component grid
-      let gridAreaX1: number = 0;
-      let gridAreaX2: number = 0;
-      if (Math.floor((i * 2) / (this.nodesPerRow * 2)) % 2 === 0) {
-        gridAreaX1 =
-          this.gridDisplacementX + this.initialDisplacementX + (i % this.nodesPerRow) * 2;
-        gridAreaX2 = gridAreaX1 + 1;
-      } else {
-        gridAreaX1 = this.nodesPerRow * 2 - (i % this.nodesPerRow) * 2 + 1;
-        gridAreaX2 = gridAreaX1 - 1;
-      }
-      let gridAreaY1: number = this.gridDisplacementY + Math.floor(i / this.nodesPerRow);
-      let gridAreaY2: number = gridAreaY1 + 1;
+      gridArea = this.createNodeGridAreas(i);
+
       //Add node to array of nodes
       this.nodes.push({
-        gridArea: `${gridAreaY1} / ${gridAreaX1} / ${gridAreaY2} / ${gridAreaX2}`,
+        gridArea: gridArea,
         text: this.tech.versions[i].name,
         size: this.nodeWidthHeight,
         color: this.tech.color_primary,
@@ -128,7 +183,24 @@ export class Timeline {
       });
     }
   }
+  createNodeGridAreas(nodeIndex: number) {
+    let gridAreaX1: number = 0;
+    let gridAreaX2: number = 0;
+    if (Math.floor((nodeIndex * 2) / (this.nodesPerRow * 2)) % 2 === 0) {
+      gridAreaX1 =
+        this.gridDisplacementX + this.initialDisplacementX + (nodeIndex % this.nodesPerRow) * 2;
+      gridAreaX2 = gridAreaX1 + 1;
+    } else {
+      gridAreaX1 = this.nodesPerRow * 2 - (nodeIndex % this.nodesPerRow) * 2 + 1;
+      gridAreaX2 = gridAreaX1 - 1;
+    }
+    let gridAreaY1: number = this.gridDisplacementY + Math.floor(nodeIndex / this.nodesPerRow);
+    let gridAreaY2: number = gridAreaY1 + 1;
 
+    return `${gridAreaY1} / ${gridAreaX1} / ${gridAreaY2} / ${gridAreaX2}`;
+  }
+
+  //HTML methods
   generateGridTemplateColumns(numNodes: number) {
     let parts = [];
     for (let i = 0; i < numNodes; i++) {
@@ -136,6 +208,7 @@ export class Timeline {
       parts.push(this.nodeWidthHeight);
     }
     parts.push(this.periodWidth);
+    console.log(`gridTemplateColumns recalculated: ${parts.join(' ')}`);
     return parts.join(' ');
   }
 }
