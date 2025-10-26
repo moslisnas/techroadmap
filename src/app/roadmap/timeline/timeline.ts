@@ -1,35 +1,32 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Technology } from '@models/Technology.model';
 import { TechnologyVersion } from '@models/TechnologyVersion.model';
-import { TimelineTooltip } from '@app/roadmap/timeline-tooltip/timeline-tooltip';
 import { TechnologyStore } from '@app/stores/technology.store';
+import { TimelinePeriod } from '@app/roadmap/timeline-period/timeline-period';
+import { TimelineNode } from '@app/roadmap/timeline-node/timeline-node';
 
 @Component({
   selector: 'app-timeline',
-  imports: [TimelineTooltip],
+  imports: [TimelinePeriod, TimelineNode],
   templateUrl: './timeline.html',
   styleUrl: './timeline.css',
 })
 export class Timeline {
-  @ViewChild('nodeTooltip', { static: false }) nodeTooltipComponent!: TimelineTooltip;
-  @ViewChild('periodTooltip', { static: false }) periodTooltipComponent!: TimelineTooltip;
-
   versions: TechnologyVersion[] = [];
-  viewBoxWidth: number = 0;
-  viewBoxHeight: number = 0;
-  nodeRadius: number = 0;
-  lineWidth: number = 1;
-  graphPaddingX: number = 0;
-  graphPaddingY: number = 0;
-  lines: any[] = [];
   periods: any[] = [];
-  circles: any[] = [];
   nodes: any[] = [];
-  lineColor: string = '#000000';
-  dotColor: string = '#000000';
-  dotFillColor: string = '#FFFFFF';
-  versionTooltipVisible: boolean = false;
-  periodTooltipVisible: boolean = false;
+  nodeRows: any[] = [];
+  nodesPerRow: number = 3;
+  gridDisplacementX: number = 1;
+  gridDisplacementY: number = 1;
+  initialDisplacementX: number = 1;
+  nodeGridHeight: number = 1;
+  periodGridHeight: number = 1;
+  curverPeriodGridHeight: number = 2;
+  gridTemplateColumns: string = '';
+  nodeWidthHeight: string = '2.5rem';
+  periodWidth: string = '6.5rem';
+  visibleIndexes: number[] = [];
 
   constructor(public technologyStore: TechnologyStore) {}
 
@@ -38,44 +35,88 @@ export class Timeline {
   }
 
   ngOnInit() {
-    this.viewBoxWidth = 300;
-    this.viewBoxHeight = 50;
-    this.nodeRadius = 2;
-    this.graphPaddingX = 5;
-    this.graphPaddingY = 5;
+    this.calculateNodesPerRow();
     if (this.tech.versions !== null) {
-      const totalPadding = this.graphPaddingX + this.graphPaddingY;
-      const lineLength = (this.viewBoxWidth - totalPadding) / (this.tech.versions.length - 1);
       if (this.tech.versions.length > 1) {
-        this.createLines(lineLength);
+        this.gridTemplateColumns = this.generateGridTemplateColumns(this.nodesPerRow);
         this.createPeriods();
-        this.createDots(lineLength);
         this.createNodes();
       } else if (this.tech.versions.length === 1) {
-        this.createDots(lineLength);
         this.createNodes();
+      }
+    }
+
+    this.createTimelineAnimation();
+  }
+  async createTimelineAnimation() {const total = Math.max(this.nodes.length, this.periods.length);
+    for (let i = 0; i < total; i++) {
+      if (i < this.nodes.length) {
+        this.visibleIndexes.push(i * 2);
+        await this.delay(100);
+        //await this.delay(window.innerWidth < 640 ? 150 : 250);}
+      }
+      if (i < this.periods.length) {
+        this.visibleIndexes.push(i * 2 + 1);
+        await this.delay(100);
+        //await this.delay(window.innerWidth < 640 ? 150 : 250);}
+      }
+    }
+  }
+  delay(ms: number) {
+    return new Promise(res => setTimeout(res, ms));
+  }
+
+  // Respsonsive timeline methods
+  @HostListener('window:resize')
+  onResize() {
+    this.calculateNodesPerRow();
+    this.gridTemplateColumns = this.generateGridTemplateColumns(this.nodesPerRow);
+    this.updateGridAreas();
+    this.updatePeriodDirectionsAndStyles();
+  }
+  calculateNodesPerRow() {
+    const windowWidth = window.innerWidth;
+
+    const remToPx = 16;
+    const nodeWidthPx = parseFloat(this.nodeWidthHeight.replace('rem', '')) * remToPx;
+    const periodWidthPx = parseFloat(this.periodWidth.replace('rem', '')) * remToPx;
+    const blockWidth = nodeWidthPx + periodWidthPx;
+
+    const estimatedNodes = Math.floor(windowWidth / blockWidth);
+    this.nodesPerRow = Math.max(3, estimatedNodes - 2);
+  }
+  updateGridAreas() {
+    for(let i:number=0; i<this.nodes.length; i++){
+      this.nodes[i].gridArea = this.createNodeGridAreas(i);
+    }
+    for(let i:number=0; i<this.nodes.length-1; i++){
+      this.periods[i].gridArea = this.createPeriodGridAreas(i);
+    }
+  }
+  updatePeriodDirectionsAndStyles() {
+    for(let i:number=0; i<this.nodes.length-1; i++){
+      //Period direction
+      this.periods[i].direction = 'right';
+      if (Math.floor((i * 2) / (this.nodesPerRow * 2)) % 2 === 0) {
+        this.periods[i].direction = 'right';
+      } else {
+        this.periods[i].direction = 'left';
+      }
+      //Curved periods
+      this.periods[i].styleType = 'straight';
+      if ((i + 1) % this.nodesPerRow === 0 && i !== 0) {
+        this.periods[i].styleType = 'curved';
       }
     }
   }
   // Graphyc elements
-  createLines(lineLength: number) {
-    for (let i = 0; i < this.tech.versions.length - 1; i++) {
-      this.lineColor = this.tech.color_primary;
-      let positionX1 = lineLength * i + this.graphPaddingX;
-      let positionX2 = lineLength * i + lineLength + this.graphPaddingX - 1;
-      let positionY1 = this.viewBoxHeight / 2;
-      let positionY2 = this.viewBoxHeight / 2;
-      this.lines.push([positionX1, positionY1, positionX2, positionY2]);
-    }
-  }
   createPeriods() {
     for (let i = 0; i < this.tech.versions.length - 1; i++) {
-      let positionLineX1 = this.lines[i][0];
-      let positionLineY1 = this.lines[i][1];
-      let positionLineX2 = this.lines[i][2];
-      let positionLineY2 = this.lines[i][3];
       let releaseYearString1: string = '';
       let releaseYearString2: string = '';
+      let gridArea: string = '';
+      let styleType: string = 'straight';
+      let direction: string = 'right';
       if (this.tech.versions[i].release_date) {
         let releaseDate: Date = new Date(this.tech.versions[i].release_date);
         releaseYearString1 = releaseDate.toLocaleDateString('en-GB', { year: 'numeric' });
@@ -84,79 +125,107 @@ export class Timeline {
         let releaseDate: Date = new Date(this.tech.versions[i + 1].release_date);
         releaseYearString2 = releaseDate.toLocaleDateString('en-GB', { year: 'numeric' });
       }
+      //Position at timeline component grid
+      gridArea = this.createPeriodGridAreas(i);
+      //Period direction
+      if (Math.floor((i * 2) / (this.nodesPerRow * 2)) % 2 === 0) {
+        direction = 'right';
+      } else {
+        direction = 'left';
+      }
+      //Curved periods
+      if ((i + 1) % this.nodesPerRow === 0 && i !== 0) {
+        styleType = 'curved';
+      }
+      //Add period to array of periods
       this.periods.push({
-        positionLineX1: positionLineX1,
-        positionLineX2: positionLineX2,
-        positionLineY1: positionLineY1,
-        positionLineY2: positionLineY2,
-        lineTooltipDescription: releaseYearString1 + ' - ' + releaseYearString2,
-        positionTooltipPeriodX: this.lines[i][0] * 3.825 + 800 / this.tech.versions.length, // TODO: improve position calculation
-        positionTooltipPeriodY: 225, // TODO: improve position calculation
+        gridArea: gridArea,
+        color: this.tech.color_primary,
+        periodWidth: this.periodWidth,
+        styleType: styleType,
+        direction: direction,
+        periodTooltipDescription: releaseYearString1 + ' - ' + releaseYearString2,
       });
     }
   }
-  createDots(lineLength: number) {
-    for (let i = 0; i < this.tech.versions.length; i++) {
-      this.dotColor = this.tech.color_primary;
-      let positionX = lineLength * i + this.graphPaddingX;
-      let positionY = this.viewBoxHeight / 2;
-      this.circles.push([positionX, positionY]);
+  createPeriodGridAreas(periodIndex: number) {
+    let gridAreaX1: number = 0;
+    let gridAreaX2: number = 0;
+    let gridAreaY1: number = 0;
+    let gridAreaY2: number = 0;
+    if (Math.floor((periodIndex * 2) / (this.nodesPerRow * 2)) % 2 === 0) {
+      gridAreaX1 =
+        this.gridDisplacementX +
+        this.initialDisplacementX +
+        (periodIndex % this.nodesPerRow) * 2 +
+        1;
+      gridAreaX2 = gridAreaX1 + 1;
+    } else {
+      gridAreaX1 = this.nodesPerRow * 2 - (periodIndex % this.nodesPerRow) * 2;
+      gridAreaX2 = gridAreaX1 - 1;
     }
+
+    gridAreaY1 = this.gridDisplacementY + Math.floor(periodIndex / this.nodesPerRow);
+    //Curved periods
+    if ((periodIndex + 1) % this.nodesPerRow === 0 && periodIndex !== 0) {
+      gridAreaY2 = gridAreaY1 + this.curverPeriodGridHeight;
+    } else {
+      gridAreaY2 = gridAreaY1 + this.periodGridHeight;
+    }
+
+    return `${gridAreaY1} / ${gridAreaX1} / ${gridAreaY2} / ${gridAreaX2}`;
   }
+
   createNodes() {
     for (let i = 0; i < this.tech.versions.length; i++) {
       let releaseDateString: string = '';
+      let gridArea: string = '';
       if (this.tech.versions[i].release_date) {
         let releaseDate: Date = new Date(this.tech.versions[i].release_date);
         releaseDateString = releaseDate.toLocaleDateString('en-GB');
       }
+      //Position at timeline component grid
+      gridArea = this.createNodeGridAreas(i);
+
+      //Add node to array of nodes
       this.nodes.push({
-        positionCircleX: this.circles[i][0],
-        positionCircleY: this.circles[i][1],
+        gridArea: gridArea,
         text: this.tech.versions[i].name,
+        size: this.nodeWidthHeight,
+        color: this.tech.color_primary,
         textFontStyle: 'font-size: 5px; font-weight: bold',
-        positionTextNodeX: this.circles[i][0] - this.tech.versions[i].name.length * 1.25,
-        positionTextNodeY: this.circles[i][1] - 5,
         nodeTooltipTitle: this.tech.versions[i].name + ' - ' + releaseDateString,
         nodeTooltipDescription: this.tech.versions[i].description,
-        positionTooltipNodeX: this.circles[i][0] * 3.5, // TODO: improve position calculation
-        positionTooltipNodeY: 175, // TODO: improve position calculation
         url: this.tech.versions[i].url,
-        //lts: this.tech.versions[i].lts,
+        //lts: this.tech.versions[i].lts, //TODO
       });
     }
   }
+  createNodeGridAreas(nodeIndex: number) {
+    let gridAreaX1: number = 0;
+    let gridAreaX2: number = 0;
+    if (Math.floor((nodeIndex * 2) / (this.nodesPerRow * 2)) % 2 === 0) {
+      gridAreaX1 =
+        this.gridDisplacementX + this.initialDisplacementX + (nodeIndex % this.nodesPerRow) * 2;
+      gridAreaX2 = gridAreaX1 + 1;
+    } else {
+      gridAreaX1 = this.nodesPerRow * 2 - (nodeIndex % this.nodesPerRow) * 2 + 1;
+      gridAreaX2 = gridAreaX1 - 1;
+    }
+    let gridAreaY1: number = this.gridDisplacementY + Math.floor(nodeIndex / this.nodesPerRow);
+    let gridAreaY2: number = gridAreaY1 + 1;
 
-  // Interaction methods and events
-  showVersionTooltip(node: any, elementRef: any) {
-    this.versionTooltipVisible = true;
-    this.nodeTooltipComponent?.showTooltip(node);
-    elementRef.setAttribute('r', this.nodeRadius * 2);
-    elementRef.setAttribute('fill', this.dotColor);
+    return `${gridAreaY1} / ${gridAreaX1} / ${gridAreaY2} / ${gridAreaX2}`;
   }
-  hideVersionTooltip(elementRef: any) {
-    this.versionTooltipVisible = false;
-    this.nodeTooltipComponent?.hideTooltip();
-    elementRef.setAttribute('r', this.nodeRadius);
-    elementRef.setAttribute('fill', '#FFFFFF');
-  }
-  openVersionUrl(node: any) {
-    window.open(node.url, '_blank');
-  }
-  showPeriodTooltip(period: any, elementRef: any) {
-    this.periodTooltipVisible = true;
-    this.periodTooltipComponent?.showTooltip(period);
-    elementRef.setAttribute(
-      'style',
-      'stroke-width: ' + this.lineWidth * 2 + '; stroke: ' + this.tech.color_primary
-    );
-  }
-  hidePeriodTooltip(elementRef: any) {
-    this.periodTooltipVisible = false;
-    this.periodTooltipComponent?.hideTooltip();
-    elementRef.setAttribute(
-      'style',
-      'stroke-width: ' + this.lineWidth + '; stroke: ' + this.tech.color_primary
-    );
+
+  //HTML methods
+  generateGridTemplateColumns(numNodes: number) {
+    let parts = [];
+    for (let i = 0; i < numNodes; i++) {
+      parts.push(this.periodWidth);
+      parts.push(this.nodeWidthHeight);
+    }
+    parts.push(this.periodWidth);
+    return parts.join(' ');
   }
 }

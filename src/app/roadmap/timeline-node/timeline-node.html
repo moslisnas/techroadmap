@@ -1,0 +1,24 @@
+<app-timeline-tooltip
+  type="node"
+  #nodeTooltip
+  [class.opacity-0]="!tooltipVisible"
+  [class.opacity-100]="tooltipVisible"
+  [class.pointer-events-none]="!tooltipVisible"
+/>
+<div class="relative flex items-center justify-center">
+  <span
+    style="transform: translate(-50%, -125%)"
+    class="absolute text-sm top-0 left-1/2 whitespace-nowrap font-bold"
+    >{{ node.text }}</span
+  >
+  <div
+    [style.background-color]="isHovered ? 'white' : node.color"
+    [style.border-color]="node.color"
+    [style.width]="node.size"
+    [style.height]="node.size"
+    class="rounded-full cursor-pointer border-4 shadow-md transition-all duration-300 hover:scale-125"
+    (mouseenter)="showVersionTooltip(node)"
+    (mouseleave)="hideVersionTooltip()"
+    (click)="openVersionUrl(node)"
+  ></div>
+</div>
