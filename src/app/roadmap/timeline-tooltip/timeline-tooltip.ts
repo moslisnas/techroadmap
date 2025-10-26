@@ -8,9 +8,9 @@ import { Component, Input } from '@angular/core';
 })
 export class TimelineTooltip {
   @Input() type: 'node' | 'period' = 'node';
-  tooltipTitle: String|null = null;
-  tooltipDescription: String|null = null;
-  tooltipNote: String|null = null;
+  tooltipTitle: String | null = null;
+  tooltipDescription: String | null = null;
+  tooltipNote: String | null = null;
 
   get visible(): boolean {
     return !!this.tooltipTitle || !!this.tooltipDescription || !!this.tooltipNote;

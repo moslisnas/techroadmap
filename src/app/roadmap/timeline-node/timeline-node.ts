@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { TimelineTooltip } from "../timeline-tooltip/timeline-tooltip";
+import { TimelineTooltip } from '../timeline-tooltip/timeline-tooltip';
 
 @Component({
   selector: 'app-timeline-node',
@@ -13,17 +13,17 @@ export class TimelineNode {
 
   tooltipVisible = false;
   isHovered = false;
-  
+
   // Interaction methods and events
   showVersionTooltip(node: any) {
     this.tooltipVisible = true;
     this.nodeTooltipComponent?.showTooltip(node);
-    this.isHovered = true; 
+    this.isHovered = true;
   }
   hideVersionTooltip() {
     this.tooltipVisible = false;
     this.nodeTooltipComponent?.hideTooltip();
-    this.isHovered = false; 
+    this.isHovered = false;
   }
   openVersionUrl(node: any) {
     window.open(node.url, '_blank');

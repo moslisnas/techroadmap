@@ -1,15 +1,24 @@
-<div class="flex justify-center mt-12"><div
-  [style.grid-template-rows]="'repeat(' + this.nodeRows.length + ', 1fr)'"
-  [style.grid-template-columns]="gridTemplateColumns"
-  class="grid gap-y-10 items-center"
->
-  @for(node of nodes; track $index) {
-  <app-timeline-node [style.grid-area]="node.gridArea" [node]="node" />
-  } @for(perid of periods; track $index) {
-  <app-timeline-period
-    [style.grid-area]="periods[$index].gridArea"
-    [period]="periods[$index]"
-  />
-  }
-</div>
+<div class="flex justify-center mt-12">
+  <div
+    [style.grid-template-rows]="'repeat(' + nodeRows.length + ', 1fr)'"
+    [style.grid-template-columns]="gridTemplateColumns"
+    class="grid gap-y-10 items-center"
+  >
+    @for(node of nodes; track $index) {
+    <app-timeline-node
+      [style.grid-area]="node.gridArea"
+      [node]="node"
+      class="transition-all duration-900 opacity-0"
+      [class.opacity-100]="visibleIndexes.includes($index * 2)"
+    />
+    }
+    @for(period of periods; track $index) {
+    <app-timeline-period
+      [style.grid-area]="period.gridArea"
+      [period]="period"
+      class="transition-all duration-900 opacity-0"
+      [class.opacity-100]="visibleIndexes.includes($index * 2 + 1)"
+    />
+    }
+  </div>
 </div>

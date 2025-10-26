@@ -26,6 +26,7 @@ export class Timeline {
   gridTemplateColumns: string = '';
   nodeWidthHeight: string = '2.5rem';
   periodWidth: string = '6.5rem';
+  visibleIndexes: number[] = [];
 
   constructor(public technologyStore: TechnologyStore) {}
 
@@ -44,6 +45,25 @@ export class Timeline {
         this.createNodes();
       }
     }
+
+    this.createTimelineAnimation();
+  }
+  async createTimelineAnimation() {const total = Math.max(this.nodes.length, this.periods.length);
+    for (let i = 0; i < total; i++) {
+      if (i < this.nodes.length) {
+        this.visibleIndexes.push(i * 2);
+        await this.delay(100);
+        //await this.delay(window.innerWidth < 640 ? 150 : 250);}
+      }
+      if (i < this.periods.length) {
+        this.visibleIndexes.push(i * 2 + 1);
+        await this.delay(100);
+        //await this.delay(window.innerWidth < 640 ? 150 : 250);}
+      }
+    }
+  }
+  delay(ms: number) {
+    return new Promise(res => setTimeout(res, ms));
   }
 
   // Respsonsive timeline methods
@@ -64,7 +84,6 @@ export class Timeline {
 
     const estimatedNodes = Math.floor(windowWidth / blockWidth);
     this.nodesPerRow = Math.max(3, estimatedNodes - 2);
-    console.log(`🧩 nodesPerRow recalculated: ${this.nodesPerRow}`);
   }
   updateGridAreas() {
     for(let i:number=0; i<this.nodes.length; i++){
@@ -89,7 +108,6 @@ export class Timeline {
         this.periods[i].styleType = 'curved';
       }
     }
-    console.log(`🧩 periods recalculated: ${this.periods}`);
   }
   // Graphyc elements
   createPeriods() {
@@ -208,7 +226,6 @@ export class Timeline {
       parts.push(this.nodeWidthHeight);
     }
     parts.push(this.periodWidth);
-    console.log(`gridTemplateColumns recalculated: ${parts.join(' ')}`);
     return parts.join(' ');
   }
 }

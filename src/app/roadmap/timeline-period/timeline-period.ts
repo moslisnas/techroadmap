@@ -12,7 +12,7 @@ export class TimelinePeriod {
   @ViewChild('periodTooltip', { static: false }) periodTooltipComponent!: TimelineTooltip;
 
   tooltipVisible = false;
-  
+
   // Interaction methods and events
   showPeriodTooltip(period: any) {
     this.tooltipVisible = true;
