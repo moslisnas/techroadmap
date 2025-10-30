@@ -33,6 +33,13 @@ On this website you can search for your favorite technology and find information
  `pnpm test`
  2. You can see also the quantity of code covered by tests:
  `pnpm coverage`
+ 
+ ### Performance
+ You can check performance quality you can:
+ 1. Execute application:
+ `pnpm start`
+ 2. You can now check performance quality:
+ `pnpm unlighthouse --site http://localhost:4200`
 
  ## Related projects
  - Private (will be public soon): [API](https://github.com/moslisnas/techroadmap-api.git)
