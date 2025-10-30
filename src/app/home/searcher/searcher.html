@@ -12,7 +12,10 @@
     <ul class="absolute bg-white border border-gray-300 rounded mt-1 w-1/2 left-1/4 max-h-64 overflow-y-auto z-10 shadow-lg">
       @for(tech of filteredTech; track tech){
       <li (click)="selectTech(tech)" class="p-2 hover:bg-gray-100 cursor-pointer flex items-center">
-        <span><img src="assets/icons/{{tech.logo_path}}" class="w-8 h-8 mr-2" /></span> {{ tech.name }}
+        <span
+          ><img src="assets/icons/{{ tech.logo_path }}" class="w-8 h-8 mr-2" [alt]="tech.name"/>
+        </span>
+        {{ tech.name }}
       </li>
       }
     </ul>

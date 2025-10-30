@@ -9,6 +9,7 @@ export class TechnologyStore {
   constructor(private apiService: ApiService) {}
 
   loadTechWithDependencies(id: number) {
+    this.tech.set(null);
     this.apiService.getTechnologyByIdWithVersions(id).subscribe({
       next: (technologyData) => {
         this.tech.set(technologyData);

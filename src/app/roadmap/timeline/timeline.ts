@@ -48,7 +48,8 @@ export class Timeline {
 
     this.createTimelineAnimation();
   }
-  async createTimelineAnimation() {const total = Math.max(this.nodes.length, this.periods.length);
+  async createTimelineAnimation() {
+    const total = Math.max(this.nodes.length, this.periods.length);
     for (let i = 0; i < total; i++) {
       if (i < this.nodes.length) {
         this.visibleIndexes.push(i * 2);
@@ -63,7 +64,7 @@ export class Timeline {
     }
   }
   delay(ms: number) {
-    return new Promise(res => setTimeout(res, ms));
+    return new Promise((res) => setTimeout(res, ms));
   }
 
   // Respsonsive timeline methods
@@ -86,15 +87,15 @@ export class Timeline {
     this.nodesPerRow = Math.max(3, estimatedNodes - 2);
   }
   updateGridAreas() {
-    for(let i:number=0; i<this.nodes.length; i++){
+    for (let i: number = 0; i < this.nodes.length; i++) {
       this.nodes[i].gridArea = this.createNodeGridAreas(i);
     }
-    for(let i:number=0; i<this.nodes.length-1; i++){
+    for (let i: number = 0; i < this.nodes.length - 1; i++) {
       this.periods[i].gridArea = this.createPeriodGridAreas(i);
     }
   }
   updatePeriodDirectionsAndStyles() {
-    for(let i:number=0; i<this.nodes.length-1; i++){
+    for (let i: number = 0; i < this.nodes.length - 1; i++) {
       //Period direction
       this.periods[i].direction = 'right';
       if (Math.floor((i * 2) / (this.nodesPerRow * 2)) % 2 === 0) {
