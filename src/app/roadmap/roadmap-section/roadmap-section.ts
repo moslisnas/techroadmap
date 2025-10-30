@@ -13,7 +13,7 @@ export class RoadmapSection {
   @Input() techString!: string;
   @Input() techActive!: boolean;
 
-  constructor(private technologyStore: TechnologyStore, private apiService:ApiService){}
+  constructor(private technologyStore: TechnologyStore, private apiService: ApiService) {}
 
   ngOnInit() {
     if (this.techString && this.techString.length > 2) {
@@ -22,15 +22,15 @@ export class RoadmapSection {
           const techsFiltered = Object.values(technologiesData).filter((tech: any) =>
             tech.name.toLowerCase().includes(this.techString.toLowerCase())
           );
-          const techFiltered:any = techsFiltered[0];
+          const techFiltered: any = techsFiltered[0];
           // Obtain technology with all data
-          if(techFiltered && techFiltered.id){
+          if (techFiltered && techFiltered.id) {
             this.technologyStore.loadTechWithDependencies(techFiltered.id);
           }
         },
         error: (error) => {
           console.error('Error obtaining data: technologies', error);
-        }
+        },
       });
     }
   }
