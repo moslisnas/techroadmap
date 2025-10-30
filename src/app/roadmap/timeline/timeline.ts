@@ -84,7 +84,12 @@ export class Timeline {
     const blockWidth = nodeWidthPx + periodWidthPx;
 
     const estimatedNodes = Math.floor(windowWidth / blockWidth);
-    this.nodesPerRow = Math.max(3, estimatedNodes - 2);
+    if(this.tech.versions.length < estimatedNodes - 2){
+      this.nodesPerRow = this.tech.versions.length;
+    }
+    else{
+      this.nodesPerRow = Math.max(3, estimatedNodes - 2);
+    }
   }
   updateGridAreas() {
     for (let i: number = 0; i < this.nodes.length; i++) {
