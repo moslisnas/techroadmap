@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" width="300" height="100">
+  <text x="50%" y="50%"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="48"
+        text-anchor="middle"
+        dominant-baseline="middle">
+    <tspan fill="#000000">Test</tspan>
+    <tspan fill="#B00000" dx="-6">N</tspan>
+    <tspan fill="#FFC04D" dx="-10">G</tspan>
+  </text>
+</svg>
