@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
   selector: 'app-news-section',
   imports: [],
   templateUrl: './news-section.html',
-  styleUrl: './news-section.css'
+  styleUrl: './news-section.css',
 })
 export class NewsSection {
-
+  news: any[] = [];
 }
