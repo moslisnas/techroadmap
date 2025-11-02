@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { RoadmapProperties } from '@app/roadmap/roadmap/roadmap.interface';
+import { ApiService } from '@services/api/api.service';
 import { RelatedSection } from '@app/roadmap/related-section/related-section';
 import { RoadmapSection } from '@app/roadmap/roadmap-section/roadmap-section';
-import { ApiService } from '@services/api/api.service';
 
 @Component({
   selector: 'app-roadmap',
@@ -10,7 +11,7 @@ import { ApiService } from '@services/api/api.service';
   templateUrl: './roadmap.html',
   styleUrl: './roadmap.css',
 })
-export class Roadmap {
+export class Roadmap implements RoadmapProperties {
   techActive: boolean = false;
   tech: string = '';
   filteredTech: any[] = [];

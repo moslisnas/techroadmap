@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NewsSectionProperties } from '@app/home/news-section/news-section.interface';
 
 @Component({
   selector: 'app-news-section',
@@ -6,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './news-section.html',
   styleUrl: './news-section.css',
 })
-export class NewsSection {
-  news: any[] = [];
+export class NewsSection implements NewsSectionProperties {
+  news: string[] = [];
 }

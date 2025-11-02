@@ -4,6 +4,7 @@ import { TechnologyVersion } from '@models/TechnologyVersion.model';
 import { TechnologyStore } from '@app/stores/technology.store';
 import { TimelinePeriod } from '@app/roadmap/timeline-period/timeline-period';
 import { TimelineNode } from '@app/roadmap/timeline-node/timeline-node';
+import { TimelineProperties } from '@app/roadmap/timeline/timeline.interface';
 
 @Component({
   selector: 'app-timeline',
@@ -11,7 +12,7 @@ import { TimelineNode } from '@app/roadmap/timeline-node/timeline-node';
   templateUrl: './timeline.html',
   styleUrl: './timeline.css',
 })
-export class Timeline {
+export class Timeline implements TimelineProperties {
   versions: TechnologyVersion[] = [];
   periods: any[] = [];
   nodes: any[] = [];
@@ -28,7 +29,7 @@ export class Timeline {
   periodWidth: string = '6.5rem';
   visibleIndexes: number[] = [];
 
-  constructor(public technologyStore: TechnologyStore) {}
+  constructor(private technologyStore: TechnologyStore) {}
 
   get tech(): Technology {
     return this.technologyStore.tech()!;
@@ -84,10 +85,9 @@ export class Timeline {
     const blockWidth = nodeWidthPx + periodWidthPx;
 
     const estimatedNodes = Math.floor(windowWidth / blockWidth);
-    if(this.tech.versions.length < estimatedNodes - 2){
+    if (this.tech.versions.length < estimatedNodes - 2) {
       this.nodesPerRow = this.tech.versions.length;
-    }
-    else{
+    } else {
       this.nodesPerRow = Math.max(3, estimatedNodes - 2);
     }
   }

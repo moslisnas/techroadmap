@@ -5,8 +5,8 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { of, throwError } from 'rxjs';
 
 import { ApiService } from '@services/api/api.service';
-import { Roadmap } from './roadmap';
 import { mockTechs } from '@mock/components/roadmap.mocks';
+import { Roadmap } from './roadmap';
 
 describe('Roadmap', () => {
   let component: Roadmap;
