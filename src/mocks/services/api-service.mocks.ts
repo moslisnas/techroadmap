@@ -12,7 +12,17 @@ export const mockTechnologyWithVersions = {
   color_primary: '#DD0031',
   color_secondary: '#C3002F',
   versions: [
-    { id: 101, name: 'Angular 2', description: 'Initial release', release_date: new Date('2016-09-14') },
-    { id: 102, name: 'Angular 6', description: 'Major update', release_date: new Date('2018-05-04') }
+    {
+      id: 101,
+      name: 'Angular 2',
+      description: 'Initial release',
+      release_date: new Date('2016-09-14'),
+    },
+    {
+      id: 102,
+      name: 'Angular 6',
+      description: 'Major update',
+      release_date: new Date('2018-05-04'),
+    },
   ],
 };

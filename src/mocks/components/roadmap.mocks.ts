@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { Technology } from '@models/Technology.model';
 
@@ -9,4 +8,4 @@ import { Technology } from '@models/Technology.model';
 })
 export class MockRoadmap {}
 
-export const mockTechs = [{ name: 'Angular' }, { name: 'React' }] as Technology[];
+export const mockTechs: Technology[] = [{ name: 'Angular' }, { name: 'React' }] as Technology[];

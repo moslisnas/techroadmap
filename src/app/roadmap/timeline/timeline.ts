@@ -1,6 +1,8 @@
 import { Component, HostListener } from '@angular/core';
 import { Technology } from '@models/Technology.model';
 import { TechnologyVersion } from '@models/TechnologyVersion.model';
+import { Node } from '@models/Node.model';
+import { Period } from '@models/Period.model';
 import { TechnologyStore } from '@app/stores/technology.store';
 import { TimelinePeriod } from '@app/roadmap/timeline-period/timeline-period';
 import { TimelineNode } from '@app/roadmap/timeline-node/timeline-node';
@@ -14,8 +16,8 @@ import { TimelineProperties } from '@app/roadmap/timeline/timeline.interface';
 })
 export class Timeline implements TimelineProperties {
   versions: TechnologyVersion[] = [];
-  periods: any[] = [];
-  nodes: any[] = [];
+  periods: Period[] = [];
+  nodes: Node[] = [];
   nodeRows: any[] = [];
   nodesPerRow: number = 3;
   gridDisplacementX: number = 1;

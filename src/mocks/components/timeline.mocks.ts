@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { TimelineTooltipProperties } from '@app/roadmap/timeline-tooltip/timeline-tooltip.interface';
+import { NodeProperties } from '@models/Node.model';
+import { PeriodProperties } from '@models/Period.model';
 import { Technology } from '@models/Technology.model';
 
 @Component({
@@ -12,21 +15,25 @@ export const mockElementRef = {
   setAttribute: jasmine.createSpy('setAttribute'),
 };
 
-export const mockNodeTooltipComponent = {
+export const mockNodeTooltipComponent: TimelineTooltipProperties = {
+  type: 'node',
   tooltipTitle: 'Angular',
   tooltipDescription: 'Frontend framework',
   tooltipNote: 'Click for more information',
+  visible: false,
   showTooltip: jasmine.createSpy('showTooltip'),
   hideTooltip: jasmine.createSpy('hideTooltip'),
 };
 
-export const mockPeriodTooltipComponent = {
+export const mockPeriodTooltipComponent: TimelineTooltipProperties = {
+  type: 'period',
   tooltipDescription: 'Q1 2025',
+  visible: false,
   showTooltip: jasmine.createSpy('showTooltip'),
   hideTooltip: jasmine.createSpy('hideTooltip'),
 };
 
-export const mockNode = {
+export const mockNode: NodeProperties = {
   gridArea: '',
   text: 'Angular 20',
   size: '2.5rem',
@@ -37,7 +44,7 @@ export const mockNode = {
   url: 'http://example.com',
 };
 
-export const mockPeriod = {
+export const mockPeriod: PeriodProperties = {
   gridArea: '',
   color: '#123456',
   periodWidth: '6.5rem',
@@ -45,4 +52,4 @@ export const mockPeriod = {
   direction: 'right',
   tooltipDescription: '2024 - 2025',
 };
-export const mockTech = { color_primary: '#123456' } as Technology;
+export const mockTech: Technology = { color_primary: '#123456' } as Technology;
