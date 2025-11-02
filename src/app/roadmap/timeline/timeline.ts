@@ -70,7 +70,7 @@ export class Timeline implements TimelineProperties {
     return new Promise((res) => setTimeout(res, ms));
   }
 
-  // Respsonsive timeline methods
+  // Responsive timeline methods
   @HostListener('window:resize')
   onResize() {
     this.calculateNodesPerRow();

@@ -1,5 +1,9 @@
+import { Node } from '@models/Node.model';
+
 export interface TimelineNodeProperties {
-  node: any;
+  node: Node;
   tooltipVisible: boolean;
   isHovered: boolean;
+  showVersionTooltip: any;
+  hideVersionTooltip: any;
 }

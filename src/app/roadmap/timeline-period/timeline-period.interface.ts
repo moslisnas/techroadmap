@@ -1,4 +1,8 @@
+import { Period } from '@models/Period.model';
+
 export interface TimelinePeriodProperties {
-  period: any;
+  period: Period;
   tooltipVisible: boolean;
+  showPeriodTooltip: any;
+  hidePeriodTooltip: any;
 }
