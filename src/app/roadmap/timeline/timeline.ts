@@ -150,7 +150,7 @@ export class Timeline {
         periodWidth: this.periodWidth,
         styleType: styleType,
         direction: direction,
-        periodTooltipDescription: releaseYearString1 + ' - ' + releaseYearString2,
+        tooltipDescription: releaseYearString1 + ' - ' + releaseYearString2,
       });
     }
   }
@@ -200,8 +200,8 @@ export class Timeline {
         size: this.nodeWidthHeight,
         color: this.tech.color_primary,
         textFontStyle: 'font-size: 5px; font-weight: bold',
-        nodeTooltipTitle: this.tech.versions[i].name + ' - ' + releaseDateString,
-        nodeTooltipDescription: this.tech.versions[i].description,
+        tooltipTitle: this.tech.versions[i].name + ' - ' + releaseDateString,
+        tooltipDescription: this.tech.versions[i].description,
         url: this.tech.versions[i].url,
         //lts: this.tech.versions[i].lts, //TODO
       });

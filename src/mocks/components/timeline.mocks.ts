@@ -13,22 +13,36 @@ export const mockElementRef = {
 };
 
 export const mockNodeTooltipComponent = {
-  nodeTooltipTitle: 'Angular',
-  nodeTooltipDescription: 'Frontend framework',
-  positionTooltipNodeX: 100,
-  positionTooltipNodeY: 200,
+  tooltipTitle: 'Angular',
+  tooltipDescription: 'Frontend framework',
+  tooltipNote: 'Click for more information',
   showTooltip: jasmine.createSpy('showTooltip'),
   hideTooltip: jasmine.createSpy('hideTooltip'),
 };
 
 export const mockPeriodTooltipComponent = {
-  lineTooltipDescription: 'Q1 2025',
-  positionTooltipPeriodX: 50,
-  positionTooltipPeriodY: 75,
+  tooltipDescription: 'Q1 2025',
   showTooltip: jasmine.createSpy('showTooltip'),
   hideTooltip: jasmine.createSpy('hideTooltip'),
 };
 
-export const mockNode = { url: 'http://example.com' };
-export const mockPeriod = { positionLineX1: 0, positionLineY1: 0, color_primary: '#123456' };
+export const mockNode = {
+  gridArea: '',
+  text: 'Angular 20',
+  size: '2.5rem',
+  color: '#123456',
+  textFontStyle: 'font-size: 5px; font-weight: bold',
+  tooltipTitle: '',
+  tooltipDescription: '',
+  url: 'http://example.com',
+};
+
+export const mockPeriod = {
+  gridArea: '',
+  color: '#123456',
+  periodWidth: '6.5rem',
+  styleType: 'straight',
+  direction: 'right',
+  tooltipDescription: '2024 - 2025',
+};
 export const mockTech = { color_primary: '#123456' } as Technology;

@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { TimelineTooltip } from '../timeline-tooltip/timeline-tooltip';
+import { TimelineTooltip } from '@app/roadmap/timeline-tooltip/timeline-tooltip';
 
 @Component({
   selector: 'app-timeline-node',

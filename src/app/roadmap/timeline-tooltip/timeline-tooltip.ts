@@ -19,12 +19,12 @@ export class TimelineTooltip {
   showTooltip(element: any) {
     switch (this.type) {
       case 'node':
-        this.tooltipTitle = element.nodeTooltipTitle;
-        this.tooltipDescription = element.nodeTooltipDescription;
+        this.tooltipTitle = element.tooltipTitle;
+        this.tooltipDescription = element.tooltipDescription;
         this.tooltipNote = 'Click for more information';
         break;
       case 'period':
-        this.tooltipDescription = element.periodTooltipDescription;
+        this.tooltipDescription = element.tooltipDescription;
         break;
     }
   }
