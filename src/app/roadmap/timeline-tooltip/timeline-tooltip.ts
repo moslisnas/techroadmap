@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { TimelineTooltipProperties } from '@app/roadmap/timeline-tooltip/timeline-tooltip.interface';
 
 @Component({
   selector: 'app-timeline-tooltip',
@@ -6,7 +7,7 @@ import { Component, Input } from '@angular/core';
   templateUrl: './timeline-tooltip.html',
   styleUrl: './timeline-tooltip.css',
 })
-export class TimelineTooltip {
+export class TimelineTooltip implements TimelineTooltipProperties {
   @Input() type: 'node' | 'period' = 'node';
   tooltipTitle: String | null = null;
   tooltipDescription: String | null = null;
@@ -19,12 +20,12 @@ export class TimelineTooltip {
   showTooltip(element: any) {
     switch (this.type) {
       case 'node':
-        this.tooltipTitle = element.nodeTooltipTitle;
-        this.tooltipDescription = element.nodeTooltipDescription;
+        this.tooltipTitle = element.tooltipTitle;
+        this.tooltipDescription = element.tooltipDescription;
         this.tooltipNote = 'Click for more information';
         break;
       case 'period':
-        this.tooltipDescription = element.periodTooltipDescription;
+        this.tooltipDescription = element.tooltipDescription;
         break;
     }
   }

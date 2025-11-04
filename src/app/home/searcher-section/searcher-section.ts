@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { Searcher } from "@app/home/searcher/searcher";
+import { SearcherSectionProperties } from '@app/home/searcher-section/searcher-section.interface';
+import { Searcher } from '@app/home/searcher/searcher';
 
 @Component({
   selector: 'app-searcher-section',
   imports: [Searcher],
   templateUrl: './searcher-section.html',
-  styleUrl: './searcher-section.css'
+  styleUrl: './searcher-section.css',
 })
-export class SearcherSection {
-
-}
+export class SearcherSection implements SearcherSectionProperties {}

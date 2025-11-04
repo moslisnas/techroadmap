@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { RelatedList } from "@app/roadmap/related-list/related-list";
+import { RelatedSectionProperties } from '@app/roadmap/related-section/related-section.interface';
+import { Technology } from '@models/Technology.model';
+import { RelatedList } from '@app/roadmap/related-list/related-list';
 
 @Component({
   selector: 'app-related-section',
   imports: [RelatedList],
   templateUrl: './related-section.html',
-  styleUrl: './related-section.css'
+  styleUrl: './related-section.css',
 })
-export class RelatedSection {
-
+export class RelatedSection implements RelatedSectionProperties {
+  relatedTechonlogies: Technology[] = [];
 }

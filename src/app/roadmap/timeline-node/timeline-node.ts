@@ -1,5 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { TimelineTooltip } from '../timeline-tooltip/timeline-tooltip';
+import { TimelineTooltip } from '@app/roadmap/timeline-tooltip/timeline-tooltip';
+import { TimelineNodeProperties } from '@app/roadmap/timeline-node/timeline-node.interface';
 
 @Component({
   selector: 'app-timeline-node',
@@ -7,7 +8,7 @@ import { TimelineTooltip } from '../timeline-tooltip/timeline-tooltip';
   templateUrl: './timeline-node.html',
   styleUrl: './timeline-node.css',
 })
-export class TimelineNode {
+export class TimelineNode implements TimelineNodeProperties {
   @Input() node: any;
   @ViewChild('nodeTooltip', { static: false }) nodeTooltipComponent!: TimelineTooltip;
 

@@ -1,9 +1,12 @@
 import { Component, HostListener } from '@angular/core';
 import { Technology } from '@models/Technology.model';
 import { TechnologyVersion } from '@models/TechnologyVersion.model';
+import { Node } from '@models/Node.model';
+import { Period } from '@models/Period.model';
 import { TechnologyStore } from '@app/stores/technology.store';
 import { TimelinePeriod } from '@app/roadmap/timeline-period/timeline-period';
 import { TimelineNode } from '@app/roadmap/timeline-node/timeline-node';
+import { TimelineProperties } from '@app/roadmap/timeline/timeline.interface';
 
 @Component({
   selector: 'app-timeline',
@@ -11,10 +14,10 @@ import { TimelineNode } from '@app/roadmap/timeline-node/timeline-node';
   templateUrl: './timeline.html',
   styleUrl: './timeline.css',
 })
-export class Timeline {
+export class Timeline implements TimelineProperties {
   versions: TechnologyVersion[] = [];
-  periods: any[] = [];
-  nodes: any[] = [];
+  periods: Period[] = [];
+  nodes: Node[] = [];
   nodeRows: any[] = [];
   nodesPerRow: number = 3;
   gridDisplacementX: number = 1;
@@ -28,7 +31,7 @@ export class Timeline {
   periodWidth: string = '6.5rem';
   visibleIndexes: number[] = [];
 
-  constructor(public technologyStore: TechnologyStore) {}
+  constructor(private technologyStore: TechnologyStore) {}
 
   get tech(): Technology {
     return this.technologyStore.tech()!;
@@ -48,7 +51,8 @@ export class Timeline {
 
     this.createTimelineAnimation();
   }
-  async createTimelineAnimation() {const total = Math.max(this.nodes.length, this.periods.length);
+  async createTimelineAnimation() {
+    const total = Math.max(this.nodes.length, this.periods.length);
     for (let i = 0; i < total; i++) {
       if (i < this.nodes.length) {
         this.visibleIndexes.push(i * 2);
@@ -63,10 +67,10 @@ export class Timeline {
     }
   }
   delay(ms: number) {
-    return new Promise(res => setTimeout(res, ms));
+    return new Promise((res) => setTimeout(res, ms));
   }
 
-  // Respsonsive timeline methods
+  // Responsive timeline methods
   @HostListener('window:resize')
   onResize() {
     this.calculateNodesPerRow();
@@ -83,18 +87,22 @@ export class Timeline {
     const blockWidth = nodeWidthPx + periodWidthPx;
 
     const estimatedNodes = Math.floor(windowWidth / blockWidth);
-    this.nodesPerRow = Math.max(3, estimatedNodes - 2);
+    if (this.tech.versions.length < estimatedNodes - 2) {
+      this.nodesPerRow = this.tech.versions.length;
+    } else {
+      this.nodesPerRow = Math.max(3, estimatedNodes - 2);
+    }
   }
   updateGridAreas() {
-    for(let i:number=0; i<this.nodes.length; i++){
+    for (let i: number = 0; i < this.nodes.length; i++) {
       this.nodes[i].gridArea = this.createNodeGridAreas(i);
     }
-    for(let i:number=0; i<this.nodes.length-1; i++){
+    for (let i: number = 0; i < this.nodes.length - 1; i++) {
       this.periods[i].gridArea = this.createPeriodGridAreas(i);
     }
   }
   updatePeriodDirectionsAndStyles() {
-    for(let i:number=0; i<this.nodes.length-1; i++){
+    for (let i: number = 0; i < this.nodes.length - 1; i++) {
       //Period direction
       this.periods[i].direction = 'right';
       if (Math.floor((i * 2) / (this.nodesPerRow * 2)) % 2 === 0) {
@@ -144,7 +152,7 @@ export class Timeline {
         periodWidth: this.periodWidth,
         styleType: styleType,
         direction: direction,
-        periodTooltipDescription: releaseYearString1 + ' - ' + releaseYearString2,
+        tooltipDescription: releaseYearString1 + ' - ' + releaseYearString2,
       });
     }
   }
@@ -194,8 +202,8 @@ export class Timeline {
         size: this.nodeWidthHeight,
         color: this.tech.color_primary,
         textFontStyle: 'font-size: 5px; font-weight: bold',
-        nodeTooltipTitle: this.tech.versions[i].name + ' - ' + releaseDateString,
-        nodeTooltipDescription: this.tech.versions[i].description,
+        tooltipTitle: this.tech.versions[i].name + ' - ' + releaseDateString,
+        tooltipDescription: this.tech.versions[i].description,
         url: this.tech.versions[i].url,
         //lts: this.tech.versions[i].lts, //TODO
       });

@@ -5,14 +5,9 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { MockTimelineTooltip } from '@mock/components/timeline-tooltip.mocks';
 import TechMockData from '@mock/TechData';
+import { mockNodes, mockPeriods } from '@mock/components/timeline.mocks';
 import { TechnologyStore } from '@app/stores/technology.store';
 import { Timeline } from './timeline';
-import {
-  mockNode,
-  mockNodeTooltipComponent,
-  mockPeriod,
-  mockPeriodTooltipComponent,
-} from '@mock/components/timeline.mocks';
 
 describe('Timeline', () => {
   let component: Timeline;
@@ -36,11 +31,6 @@ describe('Timeline', () => {
 
     fixture = TestBed.createComponent(Timeline);
     component = fixture.componentInstance;
-    component.nodeTooltipComponent = mockNodeTooltipComponent as any;
-    component.periodTooltipComponent = mockPeriodTooltipComponent as any;
-    component.nodeRadius = 5;
-    component.lineWidth = 2;
-    component.dotColor = '#FF0000';
   });
 
   it('should create', () => {
@@ -59,51 +49,65 @@ describe('Timeline', () => {
     expect(component).toBeTruthy();
   });
 
-  /*
-   * Interaction methods and events
-   */
-  it('should open version URL', () => {
+  it('should recalculate layout when window is resized', () => {
     // Arrange
-    spyOn(window, 'open');
+    const calculateNodesPerRowSpy = spyOn(component, 'calculateNodesPerRow');
+    const generateGridTemplateColumnsSpy = spyOn(
+      component,
+      'generateGridTemplateColumns'
+    ).and.returnValue('repeat(3, 1fr)');
+    const updateGridAreasSpy = spyOn(component, 'updateGridAreas');
+    const updatePeriodDirectionsAndStylesSpy = spyOn(component, 'updatePeriodDirectionsAndStyles');
     // Act
-    component.openVersionUrl(mockNode);
-    // Asserts
-    expect(window.open).toHaveBeenCalledWith('http://example.com', '_blank');
+    window.dispatchEvent(new Event('resize'));
+    // Assert
+    expect(calculateNodesPerRowSpy).toHaveBeenCalled();
+    expect(generateGridTemplateColumnsSpy).toHaveBeenCalledWith(component.nodesPerRow);
+    expect(component.gridTemplateColumns).toBe('repeat(3, 1fr)');
+    expect(updateGridAreasSpy).toHaveBeenCalled();
+    expect(updatePeriodDirectionsAndStylesSpy).toHaveBeenCalled();
   });
-  it('should show version tooltip', () => {
+
+  it('should update gridArea for all nodes and periods', () => {
     // Arrange
-    const elementRef = document.createElement('circle');
+    component.nodes = mockNodes;
+    component.periods = mockPeriods;
+    const createNodeGridAreasSpy = spyOn(component, 'createNodeGridAreas').and.callFake(
+      (i: number) => `node-${i}`
+    );
+    const createPeriodGridAreasSpy = spyOn(component, 'createPeriodGridAreas').and.callFake(
+      (i: number) => `period-${i}`
+    );
     // Act
-    component.showVersionTooltip(mockNode, elementRef);
-    // Asserts
-    expect(component.versionTooltipVisible).toBeTrue();
-    expect(component.nodeTooltipComponent.showTooltip).toHaveBeenCalledWith(mockNode);
+    component.updateGridAreas();
+    // Assert
+    expect(createNodeGridAreasSpy).toHaveBeenCalledTimes(6);
+    expect(createPeriodGridAreasSpy).toHaveBeenCalledTimes(5);
+    expect(component.nodes[0].gridArea).toBe('node-0');
+    expect(component.nodes[2].gridArea).toBe('node-2');
+    expect(component.periods[0].gridArea).toBe('period-0');
+    expect(component.periods[1].gridArea).toBe('period-1');
   });
-  it('should hide version tooltip', () => {
+
+  it('should set correct direction and styleType for periods', () => {
     // Arrange
-    const elementRef = document.createElement('circle');
+    component.nodesPerRow = 3;
+    component.nodes = mockNodes;
+    component.periods = mockPeriods;
     // Act
-    component.hideVersionTooltip(elementRef);
-    // Asserts
-    expect(component.versionTooltipVisible).toBeFalse();
-    expect(component.nodeTooltipComponent.hideTooltip).toHaveBeenCalled();
-  });
-  it('should show period tooltip', () => {
-    // Arrange
-    const elementRef = document.createElement('line');
-    // Act
-    component.showPeriodTooltip(mockPeriod, elementRef);
-    // Asserts
-    expect(component.periodTooltipVisible).toBeTrue();
-    expect(component.periodTooltipComponent.showTooltip).toHaveBeenCalledWith(mockPeriod);
-  });
-  it('should hide period tooltip', () => {
-    // Arrange
-    const elementRef = document.createElement('line');
-    // Act
-    component.hidePeriodTooltip(elementRef);
-    // Asserts
-    expect(component.periodTooltipVisible).toBeFalse();
-    expect(component.periodTooltipComponent.hideTooltip).toHaveBeenCalled();
+    component.updatePeriodDirectionsAndStyles();
+    // Assert
+    // Alternate direction (right / left)
+    expect(component.periods[0].direction).toBe('right');
+    expect(component.periods[1].direction).toBe('right');
+    expect(component.periods[2].direction).toBe('right');
+    expect(component.periods[3].direction).toBe('left');
+    expect(component.periods[4].direction).toBe('left');
+    // Curved style when (i+1)%nodesPerRow === 0 and straight otherwise
+    expect(component.periods[0].styleType).toBe('straight');
+    expect(component.periods[1].styleType).toBe('straight');
+    expect(component.periods[2].styleType).toBe('curved');
+    expect(component.periods[3].styleType).toBe('straight');
+    expect(component.periods[4].styleType).toBe('straight');
   });
 });

@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Technology } from '@models/Technology.model';
 import { ApiService } from '@services/api/api.service';
+import { SearcherProperties } from '@app/home/searcher/searcher.interface';
 
 @Component({
   selector: 'app-searcher',
@@ -10,13 +11,13 @@ import { ApiService } from '@services/api/api.service';
   templateUrl: './searcher.html',
   styleUrl: './searcher.css',
 })
-export class Searcher {
+export class Searcher implements SearcherProperties {
   searchValue: string = '';
   filteredTech: Technology[] = [];
   showDropdown: boolean = false;
   technologies: Technology[] = [];
 
-  constructor(private router: Router, private apiService:ApiService) {}
+  constructor(private router: Router, private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.apiService.getTechnologies().subscribe({
@@ -25,7 +26,7 @@ export class Searcher {
       },
       error: (error) => {
         console.error('Error obtaining data: technologies', error);
-      }
+      },
     });
   }
 
