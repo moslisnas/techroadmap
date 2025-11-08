@@ -6,6 +6,7 @@ export interface NodeProperties {
   textFontStyle: string;
   tooltipTitle: string;
   tooltipDescription: string;
+  lts: boolean;
   url?: string;
 }
 
@@ -18,6 +19,7 @@ export class Node implements NodeProperties {
     public textFontStyle: string,
     public tooltipTitle: string,
     public tooltipDescription: string,
+    public lts: boolean,
     public url?: string
   ) {}
 }

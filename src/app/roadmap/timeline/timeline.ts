@@ -194,6 +194,7 @@ export class Timeline implements TimelineProperties {
       }
       //Position at timeline component grid
       gridArea = this.createNodeGridAreas(i);
+      console.log(this.tech);
 
       //Add node to array of nodes
       this.nodes.push({
@@ -205,7 +206,7 @@ export class Timeline implements TimelineProperties {
         tooltipTitle: this.tech.versions[i].name + ' - ' + releaseDateString,
         tooltipDescription: this.tech.versions[i].description,
         url: this.tech.versions[i].url,
-        //lts: this.tech.versions[i].lts, //TODO
+        lts: this.tech.versions[i].lts
       });
     }
   }

@@ -1,0 +1,8 @@
+.arrow_box {
+  background: var(--color);
+}
+.arrow_box:after {
+  border-width: 4.5px;
+  margin-left: -4.125px;
+  border-bottom-color: var(--color);
+}
