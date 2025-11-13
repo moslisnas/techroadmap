@@ -8,7 +8,7 @@
 <div class="relative flex items-center justify-center">
   <span
     style="transform: translate(-50%, -125%)"
-    class="absolute text-sm top-0 left-1/2 whitespace-nowrap font-bold"
+    class="absolute text-lg top-0 left-1/2 whitespace-nowrap font-bold"
     >{{ node.text }}</span
   >
   <div
@@ -21,4 +21,13 @@
     (mouseleave)="hideVersionTooltip()"
     (click)="openVersionUrl(node)"
   ></div>
+  @if(node.lts !== 0){
+  <span
+    [style.--color]="node.color"
+    [style.background-color]="node.color"
+    style="transform: translate(-50%, 175%)"
+    class="absolute left-1/2 text-xs rounded-sm shadow-md p-1 pt-0.25 arrow_box after:absolute after:border-transparent after:bottom-1/1 after:left-1/2"
+    >LTS</span
+  >
+  }
 </div>
