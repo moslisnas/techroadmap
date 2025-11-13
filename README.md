@@ -42,8 +42,8 @@ On this website you can search for your favorite technology and find information
  `pnpm unlighthouse --site http://localhost:4200`
 
  ## Related projects
- - Private (will be public soon): [API](https://github.com/moslisnas/techroadmap-api.git)
- - Private (will be public soon): [Database info](https://github.com/moslisnas/techroadmap-database.git)
+ - [API](https://github.com/moslisnas/techroadmap-api.git)
+ - [Database info](https://github.com/moslisnas/techroadmap-database.git)
 
  ## Technologies used
 - Angular
