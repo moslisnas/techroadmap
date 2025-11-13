@@ -21,6 +21,7 @@
     (mouseleave)="hideVersionTooltip()"
     (click)="openVersionUrl(node)"
   ></div>
+  @if(node.lts !== 0){
   <span
     [style.--color]="node.color"
     [style.background-color]="node.color"
@@ -28,4 +29,5 @@
     class="absolute left-1/2 text-xs rounded-sm shadow-md p-1 pt-0.25 arrow_box after:absolute after:border-transparent after:bottom-1/1 after:left-1/2"
     >LTS</span
   >
+  }
 </div>
