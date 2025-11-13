@@ -17,12 +17,14 @@ export const mockTechnologyWithVersions = {
       name: 'Angular 2',
       description: 'Initial release',
       release_date: new Date('2016-09-14'),
+      lts: false,
     },
     {
       id: 102,
       name: 'Angular 6',
       description: 'Major update',
       release_date: new Date('2018-05-04'),
+      lts: true,
     },
   ],
 };

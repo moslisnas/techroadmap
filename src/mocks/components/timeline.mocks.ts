@@ -42,6 +42,7 @@ export const mockNode: NodeProperties = {
   textFontStyle: 'font-size: 5px; font-weight: bold',
   tooltipTitle: '',
   tooltipDescription: '',
+  lts: true,
   url: 'http://example.com',
 };
 export const mockPeriod: PeriodProperties = {
@@ -61,6 +62,7 @@ export const mockNodes: NodeProperties[] = [
     textFontStyle: '',
     tooltipTitle: '',
     tooltipDescription: '',
+    lts: false,
     url: 'http://example.com',
   },
   {
@@ -71,6 +73,7 @@ export const mockNodes: NodeProperties[] = [
     textFontStyle: '',
     tooltipTitle: '',
     tooltipDescription: '',
+    lts: false,
     url: 'http://example.com',
   },
   {
@@ -81,6 +84,7 @@ export const mockNodes: NodeProperties[] = [
     textFontStyle: '',
     tooltipTitle: '',
     tooltipDescription: '',
+    lts: false,
     url: 'http://example.com',
   },
   {
@@ -91,6 +95,7 @@ export const mockNodes: NodeProperties[] = [
     textFontStyle: '',
     tooltipTitle: '',
     tooltipDescription: '',
+    lts: false,
     url: 'http://example.com',
   },
   {
@@ -101,6 +106,7 @@ export const mockNodes: NodeProperties[] = [
     textFontStyle: '',
     tooltipTitle: '',
     tooltipDescription: '',
+    lts: false,
     url: 'http://example.com',
   },
   {
@@ -111,6 +117,7 @@ export const mockNodes: NodeProperties[] = [
     textFontStyle: '',
     tooltipTitle: '',
     tooltipDescription: '',
+    lts: false,
     url: 'http://example.com',
   },
 ];

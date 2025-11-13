@@ -194,7 +194,6 @@ export class Timeline implements TimelineProperties {
       }
       //Position at timeline component grid
       gridArea = this.createNodeGridAreas(i);
-      console.log(this.tech);
 
       //Add node to array of nodes
       this.nodes.push({
