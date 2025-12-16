@@ -4,6 +4,7 @@ import { TimelinePeriodProperties } from '@app/roadmap/timeline-period/timeline-
 
 @Component({
   selector: 'app-timeline-period',
+  standalone: true,
   imports: [TimelineTooltip],
   templateUrl: './timeline-period.html',
   styleUrl: './timeline-period.css',

@@ -10,6 +10,7 @@ import { TimelineProperties } from '@app/roadmap/timeline/timeline.interface';
 
 @Component({
   selector: 'app-timeline',
+  standalone: true,
   imports: [TimelinePeriod, TimelineNode],
   templateUrl: './timeline.html',
   styleUrl: './timeline.css',

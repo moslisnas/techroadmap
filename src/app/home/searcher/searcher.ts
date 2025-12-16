@@ -7,6 +7,7 @@ import { SearcherProperties } from '@app/home/searcher/searcher.interface';
 
 @Component({
   selector: 'app-searcher',
+  standalone: true,
   imports: [FormsModule],
   templateUrl: './searcher.html',
   styleUrl: './searcher.css',

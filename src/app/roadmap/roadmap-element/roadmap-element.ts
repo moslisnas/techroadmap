@@ -5,6 +5,7 @@ import { RoadmapElementProperties } from '@app/roadmap/roadmap-element/roadmap-e
 
 @Component({
   selector: 'app-roadmap-element',
+  standalone: true,
   imports: [Timeline],
   templateUrl: './roadmap-element.html',
   styleUrl: './roadmap-element.css',

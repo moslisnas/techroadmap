@@ -3,6 +3,7 @@ import { TimelineTooltipProperties } from '@app/roadmap/timeline-tooltip/timelin
 
 @Component({
   selector: 'app-timeline-tooltip',
+  standalone: true,
   imports: [],
   templateUrl: './timeline-tooltip.html',
   styleUrl: './timeline-tooltip.css',
