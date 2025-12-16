@@ -7,6 +7,7 @@ import { RoadmapSection } from '@app/roadmap/roadmap-section/roadmap-section';
 
 @Component({
   selector: 'app-roadmap',
+  standalone: true,
   imports: [RelatedSection, RoadmapSection],
   templateUrl: './roadmap.html',
   styleUrl: './roadmap.css',

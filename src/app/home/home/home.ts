@@ -5,6 +5,7 @@ import { NewsSection } from '@app/home/news-section/news-section';
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   imports: [SearcherSection, NewsSection],
   templateUrl: './home.html',
   styleUrl: './home.css',
