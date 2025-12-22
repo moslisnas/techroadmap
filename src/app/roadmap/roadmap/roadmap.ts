@@ -4,6 +4,7 @@ import { RoadmapProperties } from '@app/roadmap/roadmap/roadmap.interface';
 import { ApiService } from '@services/api/api.service';
 import { RelatedSection } from '@app/roadmap/related-section/related-section';
 import { RoadmapSection } from '@app/roadmap/roadmap-section/roadmap-section';
+import { Technology } from '@models/Technology.model';
 
 @Component({
   selector: 'app-roadmap',
@@ -24,7 +25,7 @@ export class Roadmap implements RoadmapProperties {
   ngOnInit() {
     if (this.tech && this.tech.length > 2) {
       this.apiService.getTechnologies().subscribe({
-        next: (technologiesData) => {
+        next: (technologiesData: Technology[]) => {
           this.filteredTech = Object.values(technologiesData).filter((tech: any) =>
             tech.name.toLowerCase().includes(this.tech.toLowerCase())
           );
@@ -33,7 +34,7 @@ export class Roadmap implements RoadmapProperties {
             this.tech = this.filteredTech[0].name;
           }
         },
-        error: (error) => {
+        error: (error: unknown) => {
           console.error('Error obtaining data: technologies', error);
         },
       });

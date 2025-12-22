@@ -22,10 +22,10 @@ export class Searcher implements SearcherProperties {
 
   ngOnInit(): void {
     this.apiService.getTechnologies().subscribe({
-      next: (technologiesData) => {
+      next: (technologiesData: Technology[]) => {
         this.technologies = technologiesData;
       },
-      error: (error) => {
+      error: (error: unknown) => {
         console.error('Error obtaining data: technologies', error);
       },
     });
