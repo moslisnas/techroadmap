@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ApiService } from '../../../app/services/api/api.service';
+import { ApiService } from '@services/api/api.service';
 import { TechnologyStore } from '@app/stores/technology.store';
 import { RoadmapSectionProperties } from '@app/roadmap/roadmap-section/roadmap-section.interface';
 import { RoadmapElement } from '@app/roadmap/roadmap-element/roadmap-element';

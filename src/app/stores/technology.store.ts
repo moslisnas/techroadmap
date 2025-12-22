@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { Technology } from '@models/Technology.model';
-import { ApiService } from '../../app/services/api/api.service';
+import { ApiService } from '@services/api/api.service';
 
 @Injectable({ providedIn: 'root' })
 export class TechnologyStore {

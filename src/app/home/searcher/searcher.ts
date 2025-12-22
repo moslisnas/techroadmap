@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Technology } from '@models/Technology.model';
 import { SearcherProperties } from '@app/home/searcher/searcher.interface';
-import { ApiService } from '../../../app/services/api/api.service';
+import { ApiService } from '@services/api/api.service';
 
 @Component({
   selector: 'app-searcher',
