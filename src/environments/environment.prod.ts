@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: '',
-  apiVersion: 'v1'
+  apiUrl: 'https://techroadmap-api.onrender.com/api/',
+  apiVersion: 'v0'
 };

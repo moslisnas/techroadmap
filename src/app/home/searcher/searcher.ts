@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Technology } from '@models/Technology.model';
-import { ApiService } from '@services/api/api.service';
 import { SearcherProperties } from '@app/home/searcher/searcher.interface';
+import { ApiService } from '@services/api/api.service';
 
 @Component({
   selector: 'app-searcher',
+  standalone: true,
   imports: [FormsModule],
   templateUrl: './searcher.html',
   styleUrl: './searcher.css',
@@ -21,10 +22,10 @@ export class Searcher implements SearcherProperties {
 
   ngOnInit(): void {
     this.apiService.getTechnologies().subscribe({
-      next: (technologiesData) => {
+      next: (technologiesData: Technology[]) => {
         this.technologies = technologiesData;
       },
-      error: (error) => {
+      error: (error: unknown) => {
         console.error('Error obtaining data: technologies', error);
       },
     });

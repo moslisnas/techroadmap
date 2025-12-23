@@ -3,6 +3,7 @@ import { NewsSectionProperties } from '@app/home/news-section/news-section.inter
 
 @Component({
   selector: 'app-news-section',
+  standalone: true,
   imports: [],
   templateUrl: './news-section.html',
   styleUrl: './news-section.css',

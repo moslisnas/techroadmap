@@ -3,6 +3,7 @@ import { RelatedListProperties } from '@app/roadmap/related-list/related-list.in
 
 @Component({
   selector: 'app-related-list',
+  standalone: true,
   imports: [],
   templateUrl: './related-list.html',
   styleUrl: './related-list.css',

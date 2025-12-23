@@ -11,10 +11,10 @@ export class TechnologyStore {
   loadTechWithDependencies(id: number) {
     this.tech.set(null);
     this.apiService.getTechnologyByIdWithVersions(id).subscribe({
-      next: (technologyData) => {
+      next: (technologyData: Technology) => {
         this.tech.set(technologyData);
       },
-      error: (error) => {
+      error: (error: unknown) => {
         console.error('Error obtaining data: technology', error);
       },
     });

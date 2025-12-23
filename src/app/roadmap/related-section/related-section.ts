@@ -5,6 +5,7 @@ import { RelatedList } from '@app/roadmap/related-list/related-list';
 
 @Component({
   selector: 'app-related-section',
+  standalone: true,
   imports: [RelatedList],
   templateUrl: './related-section.html',
   styleUrl: './related-section.css',

@@ -4,6 +4,7 @@ import { TimelineNodeProperties } from '@app/roadmap/timeline-node/timeline-node
 
 @Component({
   selector: 'app-timeline-node',
+  standalone: true,
   imports: [TimelineTooltip],
   templateUrl: './timeline-node.html',
   styleUrl: './timeline-node.css',
